@@ -1,0 +1,38 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos das colunas */
+.container {
+    display: flex;
+}
+
+.sidebar {
+    width: 25%; /* Largura da sidebar */
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.conteudo {
+    flex: 1; /* Ocupa o restante do espaço disponível */
+    padding: 20px;
+}
+
+/* Estilos para telas menores */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Altera para layout de coluna única em telas menores */
+    }
+
+    .sidebar {
+        width: 100%; /* Define a largura total para ocupar a tela inteira */
+        margin-bottom: 20px;
+    }
+
+    .conteudo {
+        width: 100%; /* Define a largura total para ocupar a tela inteira */
+    }
+}

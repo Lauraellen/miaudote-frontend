@@ -1,11 +1,27 @@
-<div class="container">
+<div class="all-content">
     <!-- quando for acesso pelo celular, é melhor a sidebar fechar e abir quando clicar -->
     <div class="sidebar">
         <h2>Sidebar</h2>
         <p>Conteúdo da sidebar...</p>
     </div>
     <div class="conteudo">
-        <h2>Conteúdo Principal</h2>
-        <p>Conteúdo principal...</p>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" *ngFor="let pet of listPets">
+                    <div class="pet-carousel">
+                        <h3>{{ pet.name }}</h3>
+                        <div class="slick-carousel">
+                            <div *ngFor="let photo of pet.photos">
+                                <div class="image-container with-border">
+                                    <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

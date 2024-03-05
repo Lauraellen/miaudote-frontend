@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
 /* Estilos gerais */
 body {
     font-family: Arial, sans-serif;
@@ -6,33 +11,72 @@ body {
 }
 
 /* Estilos das colunas */
-.container {
+.all-content {
     display: flex;
 }
 
 .sidebar {
-    width: 25%; /* Largura da sidebar */
+    width: 25%;
+    /* Largura da sidebar */
     background-color: #f2f2f2;
     padding: 20px;
 }
 
 .conteudo {
-    flex: 1; /* Ocupa o restante do espaço disponível */
+    flex: 1;
+    /* Ocupa o restante do espaço disponível */
     padding: 20px;
 }
 
+.pet-carousel {
+    margin-bottom: 20px;
+}
+
+.slick-carousel {
+    margin-top: 10px;
+}
+
+.slick-slide img {
+    width: 100%;
+    height: auto;
+    /* Adiciona altura automática para manter a proporção da imagem */
+}
+
+.image-container {
+    width: 420px;
+    /* Defina o tamanho desejado */
+    height: 320px;
+    /* Defina o tamanho desejado */
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+
+.with-border {
+    border-radius: 10px;
+    
+}
+
+
 /* Estilos para telas menores */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Altera para layout de coluna única em telas menores */
+    .all-content {
+        flex-direction: column;
+        /* Altera para layout de coluna única em telas menores */
     }
 
     .sidebar {
-        width: 100%; /* Define a largura total para ocupar a tela inteira */
+        width: 100%;
+        /* Define a largura total para ocupar a tela inteira */
         margin-bottom: 20px;
     }
 
     .conteudo {
-        width: 100%; /* Define a largura total para ocupar a tela inteira */
+        width: 100%;
+        /* Define a largura total para ocupar a tela inteira */
     }
 }

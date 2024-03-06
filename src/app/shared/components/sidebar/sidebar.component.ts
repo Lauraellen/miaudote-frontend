@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  navigateTo() {
+    console.debug('auqi')
+  }
 }

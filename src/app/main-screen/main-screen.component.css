@@ -1,31 +1,17 @@
-* {
-    margin: 0;
-    padding: 0;
+.container-fluid {
+    display: grid;
+    grid-template-columns: [sidebar] 18% [conteudo] 80%;
+    gap: 15px;
 }
-
-/* Estilos gerais */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-/* Estilos das colunas */
-.all-content {
-    display: flex;
-}
-
 .sidebar {
-    width: 25%;
     /* Largura da sidebar */
-    background-color: #f2f2f2;
-    padding: 20px;
+    border: 2px solid black;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .conteudo {
-    flex: 1;
-    /* Ocupa o restante do espaço disponível */
-    padding: 20px;
+    margin-top: 2%;
 }
 
 .pet-carousel {
@@ -55,16 +41,20 @@ body {
     height: auto;
 }
 
-
-.with-border {
-    border-radius: 10px;
-    
+span {
+    background-color: rgba(202, 198, 198, 0.658);
+    margin: 2px;
+    font-size: 16px;
 }
 
+.name {
+    font-weight: bold;
+}
 
 /* Estilos para telas menores */
 @media (max-width: 768px) {
-    .all-content {
+    .container-fluid {
+        display: flex;
         flex-direction: column;
         /* Altera para layout de coluna única em telas menores */
     }

@@ -11,6 +11,10 @@ export class MainScreenComponent implements OnInit, AfterViewInit{
   listPets: any[] = [
     {
       name: 'Floquinho',
+      breed: 'Vira-lata',
+      age: '5 anos',
+      city: 'Cambuí - MG',
+      description: 'Minha avó faleceu e não podemos cuidar',
       photos: [
         { url: '/assets/images/golden-photo-01.jpeg', alt: 'Photo 1' },
         { url: '/assets/images/golden-photo-02.jpg', alt: 'Photo 2' },
@@ -21,6 +25,10 @@ export class MainScreenComponent implements OnInit, AfterViewInit{
     },
     {
       name: 'Mili',
+      breed: 'Siamês',
+      age: 'indefinido',
+      city: 'Cambuí - MG',
+      description: 'Encontrei na rua e não posso ficar',
       photos: [
         { url: '/assets/images/golden-photo-01.jpeg', alt: 'Photo 1' },
         { url: '/assets/images/golden-photo-02.jpg', alt: 'Photo 2' },
@@ -30,6 +38,10 @@ export class MainScreenComponent implements OnInit, AfterViewInit{
     },
     {
       name: 'Pantera',
+      breed: 'Shih-tzu',
+      age: '2 anos',
+      city: 'Cambuí - MG',
+      description: 'Foi resgatada',
       photos: [
         { url: '/assets/images/golden-photo-01.jpeg', alt: 'Photo 1' },
         { url: '/assets/images/golden-photo-02.jpg', alt: 'Photo 2' },

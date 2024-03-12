@@ -1,26 +1,35 @@
-<div class="all-content">
+<div class="container-fluid">
     <!-- quando for acesso pelo celular, é melhor a sidebar fechar e abir quando clicar -->
     <div class="sidebar">
-        <h2>Sidebar</h2>
-        <p>Conteúdo da sidebar...</p>
+        <div style="padding-top: 15%;">
+            <app-sidebar></app-sidebar>
+        </div>
     </div>
     <div class="conteudo">
 
 
         <div class="container">
             <div class="row">
-                <div class="col-md-4" *ngFor="let pet of listPets">
-                    <div class="pet-carousel">
-                        <h3>{{ pet.name }}</h3>
-                        <div class="slick-carousel">
-                            <div *ngFor="let photo of pet.photos">
-                                <div class="image-container with-border">
-                                    <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
-                                  </div>
+                <ng-container *ngFor="let pet of listPets">
+                    <div class="col-md-4">
+                        <div class="pet-carousel">
+                            <div class="slick-carousel">
+                                <div *ngFor="let photo of pet.photos">
+                                    <div class="image-container">
+                                        <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <div class="row" style="margin-left: 1px; margin-right: 1px;">
+                            <span class="col-md-3 name">{{pet.name}}</span>
+                            <span class="col-md-3" *ngIf="pet.age">{{pet.age}}</span>
+                            <span class="col-md-3" *ngIf="pet.breed" >{{pet.breed}}</span>
+                            <span class="col-md-4" *ngIf="pet.city">{{pet.city}}</span>
+                            <span class="col-md-12" *ngIf="pet.description">{{pet.description}}</span>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
             </div>
         </div>
     </div>

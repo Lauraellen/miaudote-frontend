@@ -21,13 +21,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row" style="margin-left: 1px; margin-right: 1px;">
-                            <span class="col-md-3 name">{{pet.name}}</span>
-                            <span class="col-md-3" *ngIf="pet.age">{{pet.age}}</span>
-                            <span class="col-md-3" *ngIf="pet.breed" >{{pet.breed}}</span>
-                            <span class="col-md-4" *ngIf="pet.city">{{pet.city}}</span>
-                            <span class="col-md-12" *ngIf="pet.description">{{pet.description}}</span>
+                        <div style="background-color: rgba(202, 198, 198, 0.658);">
+                            <div class="d-flex justify-content-center">
+                                <span class="name">{{pet.name}} </span>
+                                <span *ngIf="pet.age">- {{pet.age}} - </span>
+                                <span *ngIf="pet.breed">{{pet.breed}} - </span>
+                                <span *ngIf="pet.city">{{pet.city}}</span>
+                            </div>
+                            <p class="d-flex justify-content-center col-md-12" *ngIf="pet.description">{{pet.description}}</p>
                         </div>
+
+
                     </div>
                 </ng-container>
             </div>

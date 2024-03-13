@@ -29,10 +29,6 @@
 }
 
 .image-container {
-    width: 420px;
-    /* Defina o tamanho desejado */
-    height: 320px;
-    /* Defina o tamanho desejado */
     overflow: hidden;
 }
 
@@ -42,11 +38,14 @@
 }
 
 span {
-    background-color: rgba(202, 198, 198, 0.658);
     margin: 2px;
     font-size: 16px;
 }
 
+p {
+    margin: 2px;
+    font-size: 16px;
+}
 .name {
     font-weight: bold;
 }

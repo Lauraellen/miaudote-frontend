@@ -7,11 +7,13 @@ import { MainScreenComponent } from './main-screen/main-screen.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainScreenComponent
+    MainScreenComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

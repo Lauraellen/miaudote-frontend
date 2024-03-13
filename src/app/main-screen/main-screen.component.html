@@ -17,6 +17,10 @@
                                 <div *ngFor="let photo of pet.photos">
                                     <div class="image-container">
                                         <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
+                                        <div class="carousel-buttons">
+                                            <button class="btn btn-pink adopt-btn">Adotar amiguinho agora!</button>
+                                            <button class="btn btn-white fav-btn">Possível aumiguinho</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

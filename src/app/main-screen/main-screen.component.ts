@@ -1,4 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit } from '@angular/core';
+import { PetService } from '../services/pet/pet.service';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 declare var $: any;
 import 'slick-carousel';
 @Component({
@@ -7,6 +11,8 @@ import 'slick-carousel';
   styleUrls: ['./main-screen.component.css']
 })
 export class MainScreenComponent implements OnInit, AfterViewInit{
+
+  //listPets: any[] = [];
 
   listPets: any[] = [
     {
@@ -61,9 +67,20 @@ export class MainScreenComponent implements OnInit, AfterViewInit{
   ]
   slickCarousels: any[] = []; // Inicializa a propriedade slickCarousels como uma array vazia
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(
+    private elementRef: ElementRef,
+    private petService: PetService,
+  ) {}
 
   ngOnInit(): void {
+    // this.getPets().subscribe(
+    //   (pets: any[]) => {
+    //     this.listPets = pets;
+    //   },
+    //   (error) => {
+    //     console.error('Erro ao carregar pets', error);
+    //   }
+    // );
   }
 
   // ngAfterViewInit() {
@@ -107,4 +124,14 @@ export class MainScreenComponent implements OnInit, AfterViewInit{
     });
   }
 
+  getPets(): Observable<any[]> {
+    return this.petService.getPets().pipe(
+      map((res: any) => {
+        if (res && Array.isArray(res)) {
+          console.log(res)
+          return res;
+        } else return [];
+      })
+    ) as Observable<any[]>;
+  }
 }

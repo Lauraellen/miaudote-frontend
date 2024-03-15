@@ -8,6 +8,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './login/login.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { LoaderService } from './services/loader/loader.service';
+import { LoaderInterceptor } from './services/interceptor/loader-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -20,12 +23,20 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     ReactiveFormsModule,
     SharedModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule,
   ],
   exports: [
     SharedModule
   ],
-  providers: [],
+  providers: [
+    LoaderService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

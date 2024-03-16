@@ -39,9 +39,10 @@
                 <label for="state" class="ng-select-label">Estado</label>
                 <div class="custom-select-container">
                     <select class="form-control custom-select" id="state" formControlName="state" (change)="onStateSelect($event)">
-                        <option value="0" selected>Todos</option>
-                        <option *ngFor="let state of states" [value]="state.Id">{{ state.Name }}</option>
+                        <option [ngValue]="0" selected>Todos</option> <!-- Opção para seleção vazia -->
+                        <option *ngFor="let state of states" [ngValue]="state">{{ state.nome }}</option> <!-- Usando ngValue para passar o objeto completo -->
                     </select>
+                    
                     <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
                     <!-- Ícone "x" para limpar a seleção -->
                     <div class="clear-selection-icon" *ngIf="formFilter.get('state')?.value" (click)="clearSelection('state')">x</div>
@@ -53,7 +54,7 @@
                 <div class="custom-select-container">
                     <select class="form-control custom-select" id="city" formControlName="city" (change)="onCitySelect($event)">
                         <option value="0" selected>Todos</option>
-                        <option *ngFor="let city of cities" [value]="city.Id">{{ city.Name }}</option>
+                        <option *ngFor="let city of cities" [value]="city.id">{{ city.nome }}</option>
                     </select>
                     <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
                     <!-- Ícone "x" para limpar a seleção -->

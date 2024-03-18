@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoaderService } from './services/loader/loader.service';
 import { LoaderInterceptor } from './services/interceptor/loader-interceptor.service';
+import { AuthInterceptor } from './services/auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,13 @@ import { LoaderInterceptor } from './services/interceptor/loader-interceptor.ser
       useClass: LoaderInterceptor,
       multi: true,
     },
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

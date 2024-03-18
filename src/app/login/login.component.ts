@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +12,12 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
+  loginError: boolean = false;
   
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private authServive: AuthService
   ) {
 
   }
@@ -26,7 +30,18 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.debug('enter to page')
-    this.router.navigate(['/adote'])
+    this.authServive.login(this.loginForm.getRawValue()).pipe(take(1))
+    .subscribe({
+      next: (response: any) => {
+        this.authServive.setToken(response.token)
+        this.router.navigate(['/adote'])
+        this.loginError = false;
+        
+      },
+      error: () => {
+        this.loginError = true;
+
+      },
+    })
   }
 }

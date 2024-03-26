@@ -12,6 +12,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoaderService } from './services/loader/loader.service';
 import { LoaderInterceptor } from './services/interceptor/loader-interceptor.service';
 import { AuthInterceptor } from './services/auth/auth-interceptor.service';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AuthInterceptor } from './services/auth/auth-interceptor.service';
   ],
   providers: [
     LoaderService,
+    provideEnvironmentNgxMask(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

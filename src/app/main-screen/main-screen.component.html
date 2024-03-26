@@ -10,37 +10,12 @@
         </div>
     </div>
     <div class="conteudo">
-        <div class="container" style="margin-bottom: 15px;">
-            <div class="row">
-                <ng-container *ngFor="let pet of listPets">
-                    <div class="col-md-4">
-                        <div class="pet-carousel">
-                            <div class="slick-carousel">
-                                <div *ngFor="let photo of pet.photos">
-                                    <div class="image-container">
-                                        <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
-                                        <div class="carousel-buttons">
-                                            <button class="btn btn-pink adopt-btn">Adotar amiguinho agora!</button>
-                                            <button class="btn btn-white fav-btn">Possível aumiguinho</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="background-color: rgba(202, 198, 198, 0.658);">
-                            <div class="d-flex justify-content-center">
-                                <span class="name">{{pet.name}} </span>
-                                <span *ngIf="pet.age">- {{pet.age}} - </span>
-                                <span *ngIf="pet.breed">{{pet.breed}} - </span>
-                                <span *ngIf="pet.city">{{pet.city}}</span>
-                            </div>
-                            <p class="d-flex justify-content-center col-md-12" *ngIf="pet.description">{{pet.description}}</p>
-                        </div>
+        <ng-container *ngIf="!isProfile">
+            <app-list-pets></app-list-pets>
+        </ng-container>
 
-
-                    </div>
-                </ng-container>
-            </div>
-        </div>
+        <ng-container *ngIf="isProfile">
+            <app-profile></app-profile>
+        </ng-container>
     </div>
 </div>

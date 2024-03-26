@@ -4,6 +4,7 @@ import { take } from 'rxjs/operators';
 
 declare var $: any;
 import 'slick-carousel';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-main-screen',
   templateUrl: './main-screen.component.html',
@@ -11,53 +12,17 @@ import 'slick-carousel';
 })
 export class MainScreenComponent implements OnInit {
 
-  listPets: any;
-  loadingPets: boolean = false;
-  slickCarousels: any[] = [];
+  isProfile: boolean = false;
 
   constructor(
-    private elementRef: ElementRef,
-    private petService: PetService,
-    private cdr: ChangeDetectorRef
-
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.getPets();
-  }
-
-  initializeCarousels() {
-    const petCarousels = this.elementRef.nativeElement.querySelectorAll('.pet-carousel');
-
-    petCarousels.forEach((petCarousel: any) => {
-      const slickCarousels = petCarousel.querySelectorAll('.slick-carousel');
-
-      slickCarousels.forEach((slickCarousel: any) => {
-        $(slickCarousel).slick({
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          dots: true,
-          arrows: false,
-          autoplay: false,
-          infinite: true,
-          autoplaySpeed: 5000
-        });
-      });
+    this.activatedRoute.queryParams.subscribe((res: any) => {
+      console.debug(res)
+      this.isProfile = res.isProfile == "true" || res.isProfile == true ? true : false;
     });
   }
 
-  getPets() {
-    this.loadingPets = true;
-    this.petService.getPets().pipe(take(1))
-      .subscribe({
-        next: response => {
-          this.listPets = response;
-          this.loadingPets = false;
-
-          this.cdr.detectChanges();
-          this.initializeCarousels()
-          
-        }
-      })
-  }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,7 +8,22 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 
+  constructor(
+    private router: Router,
+
+  ){}
+  
   navigateTo() {
     console.debug('auqi')
+  }
+
+  navigateToHome() {
+    this.router.navigate(['/adote'], { queryParams: { isProfile: false }})
+
+  }
+
+  navigateToProfile() {
+    this.router.navigate(['/meu-perfil'], { queryParams: { isProfile: true }})
+
   }
 }

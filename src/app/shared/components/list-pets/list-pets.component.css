@@ -1,0 +1,98 @@
+
+.pet-carousel {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.image-container {
+    position: relative;
+}
+
+.carousel-buttons {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    flex-direction: column;
+}
+
+.pet-carousel:hover .carousel-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.adopt-btn,
+.fav-btn {
+    margin: 5px 0;
+    border-radius: 10px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.adopt-btn {
+    background-color: #ff69b4; /* Rosa */
+    color: white; /* Texto branco */
+}
+
+.fav-btn {
+    background-color: white;
+    color: black;
+}
+
+.adopt-btn:hover {
+    background-color: #d46aaf;
+}
+
+.fav-btn:hover {
+    background-color: #aaa5a8;
+}
+
+.slick-carousel {
+    margin-top: 10px;
+}
+
+.slick-slide img {
+    width: 100%;
+    height: auto;
+    /* Adiciona altura automática para manter a proporção da imagem */
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.image-container:hover img {
+    opacity: 0.7;
+}
+
+span {
+    margin: 2px;
+    font-size: 16px;
+}
+
+p {
+    margin: 2px;
+    font-size: 16px;
+}
+
+.name {
+    font-weight: bold;
+}
+
+.btn-new-pet {
+    margin: 5px 0;
+    border-radius: 10px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+    background-color: #AACBC4;
+    color: white;
+    font-weight: bold;
+}

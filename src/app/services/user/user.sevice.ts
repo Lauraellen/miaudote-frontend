@@ -18,7 +18,7 @@ export class UserService {
   }
 
   getUser(id: String) {
-    return this.http.get(`${environment.url}/user${id}`);
+    return this.http.get(`${environment.url}/user/${id}`);
   }
 
   updateUser(id: String, body: any) {    

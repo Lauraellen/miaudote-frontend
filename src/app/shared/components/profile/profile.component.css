@@ -1,0 +1,30 @@
+hr {
+    height: 4px;
+    background: black;
+}
+
+.btn-edit {
+    margin: 5px 0;
+    border-radius: 10px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+    background-color: #AACBC4;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-cancel {
+    margin: 5px 0;
+    border-radius: 10px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+    background-color: rgb(194, 94, 94);
+    color: white;
+    font-weight: bold;
+}

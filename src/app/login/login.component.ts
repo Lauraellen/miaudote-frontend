@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     .subscribe({
       next: (response: any) => {
         this.authServive.setToken(response.token)
+        this.authServive.setUserId(response.userId)
         this.router.navigate(['/adote'])
         this.loginError = false;
         

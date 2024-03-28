@@ -13,7 +13,11 @@ import { LoaderService } from './services/loader/loader.service';
 import { LoaderInterceptor } from './services/interceptor/loader-interceptor.service';
 import { AuthInterceptor } from './services/auth/auth-interceptor.service';
 import { provideEnvironmentNgxMask } from 'ngx-mask';
-
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+// import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +31,10 @@ import { provideEnvironmentNgxMask } from 'ngx-mask';
     SharedModule,
     FontAwesomeModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule,
+    // AngularFirestoreModule,
+    AngularFireStorageModule
   ],
   exports: [
     SharedModule

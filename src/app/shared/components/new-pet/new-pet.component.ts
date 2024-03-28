@@ -16,7 +16,8 @@ export class NewPetComponent implements OnInit {
 
   selectedFiles?: FileList;
   currentFileUpload?: FileUpload;
-  percentage = 0;
+  percentage: number | undefined = 0;
+  filesUploaded: any[] = [];
 
   genders: any[] = [
     {
@@ -48,10 +49,10 @@ export class NewPetComponent implements OnInit {
       name: [null],
       gender: [0],
       breed: [null],
-      species: [null],
+      idSpecie: [null],
       age: [null],
-      state: [0],
-      city: [0],
+      idState: [0],
+      idCity: [0],
       description: [null],
       status: ['Disponível'],
       registrationDate: [new Date()],
@@ -64,29 +65,29 @@ export class NewPetComponent implements OnInit {
   }
 
   saveNewPet() {
-    // const userId = this.authService.getUserId();
-    // console.debug(this.selectedFiles)
+    console.debug(this.filesUploaded)
+    console.debug(this.currentFileUpload)
+    const userId = this.authService.getUserId();
+    console.debug(this.selectedFiles)
 
-    // const files = [];
-    // for (const file of this.selectedFiles) {
-    //   const fileName = file.name;
-    //   const alt = fileName.split('.')[0];
-    //   files.push({url: file.name, alt: alt})
-    // }
+    const files = [];
 
-    // const body = this.formPets.getRawValue()
-    // body.idUser = userId
-    // body.photos = files;
-    // body.state = body.state.id
+    files.push({url: this.currentFileUpload?.url, alt: this.currentFileUpload?.name})
+  
+    const body = this.formPets.getRawValue()
+    body.idUser = userId
+    body.photos = files;
+    body.idState = body.idState.id
 
-    // this.petsService.createPet(body).subscribe(res => {
-    //   console.debug(res)
-    // })
-    // console.debug(JSON.stringify(body))
+    this.petsService.createPet(body).subscribe(res => {
+      console.debug(res)
+    })
+    console.debug(JSON.stringify(body))
   }
 
   selectFile(event: any): void {
     this.selectedFiles = event.target.files;
+    this.upload();
   }
 
   upload(): void {
@@ -96,20 +97,43 @@ export class NewPetComponent implements OnInit {
 
       if (file) {
         this.currentFileUpload = new FileUpload(file);
+        console.debug('currentFileUpload => ', this.currentFileUpload)
         this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-          percentage => {
-            this.percentage = Math.round(percentage ? percentage : 0);
-          },
-          error => {
-            console.log(error);
+          (percentage: number | undefined) => {
+            this.percentage = percentage;
           }
         );
+
+
+        // const url =  this.uploadService.pushFileToStorage(this.currentFileUpload).url;
+        // const alt =  this.uploadService.pushFileToStorage(this.currentFileUpload).alt;
+        // this.uploadService.pushFileToStorage(this.currentFileUpload).percentageChanges.pipe().subscribe(
+        //   (res: any) => {
+        //     this.percentage = res;
+        //     console.debug(res)
+
+        //     if(this.percentage === 100) {
+        //       this.filesUploaded.push({url: url, alt: alt})
+        //     }
+        //   }
+        // )
       }
+
+      // file => {
+      //   console.debug('percentage => ', file)
+      //   // this.percentage = Math.round(file.percentage ? file.percentage : 0);
+      //   this.filesUploaded.push({
+      //     url: file.url, alt: file.name
+      //   })
+      // },
+      // error => {
+      //   console.log(error);
+      // }
     }
   }
 
   onStateSelect(event: any) {
-    const state = this.formPets.get('state')?.value;
+    const state = this.formPets.get('idState')?.value;
     this.ibgeService.getCitiesByStated(state.sigla).pipe(take(1)).subscribe({
       next: (response) => {
         this.cities = response;

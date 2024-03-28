@@ -26,8 +26,8 @@
                 </div>
 
                 <div class="form-group col-md-3 mt-3">
-                    <label for="species" class="ng-select-label">Espécie</label>
-                    <input class="form-control" id="species" formControlName="species" placeholder="Espécie">
+                    <label for="idSpecie" class="ng-select-label">Espécie</label>
+                    <input class="form-control" id="idSpecie" formControlName="idSpecie" placeholder="Espécie">
                 </div>
 
                 <div class="form-group col-md-3 mt-3">
@@ -36,9 +36,9 @@
                 </div>
 
                 <div class="form-group col-md-3 mt-3">
-                    <label for="state" class="ng-select-label">Estado</label>
+                    <label for="idState" class="ng-select-label">Estado</label>
                     <div class="custom-select-container">
-                        <select class="form-control custom-select" id="state" formControlName="state"
+                        <select class="form-control custom-select" id="idState" formControlName="idState"
                             (change)="onStateSelect($event)">
                             <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
                             <option *ngFor="let state of states" [ngValue]="state">{{ state.nome }}</option>
@@ -51,9 +51,9 @@
                 </div>
 
                 <div class="form-group col-md-3 mt-3">
-                    <label for="city" class="ng-select-label">Cidade</label>
+                    <label for="idCity" class="ng-select-label">Cidade</label>
                     <div class="custom-select-container">
-                        <select class="form-control custom-select" id="city" formControlName="city">
+                        <select class="form-control custom-select" id="idCity" formControlName="idCity">
                             <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
                             <option *ngFor="let city of cities" [value]="city.id">{{ city.nome }}</option>
                         </select>
@@ -68,11 +68,40 @@
 
                 </div>
 
-                <div class="form-group col-md-6 mt-3">
-                    <input type="file" name="photos" (change)="onFilesSelected($event)" accept="image/jpeg, image/jpg, image/png" multiple>
-                    <button type="submit">Enviar</button>
-
-                </div>
+                <div class="row">
+                    <div class="col-8">
+                      <label>
+                        <input
+                          type="file"
+                          class="text-nowrap text-truncate"
+                          (change)="selectFile($event)"
+                        />
+                      </label>
+                    </div>
+                  
+                    <!-- <div class="col-4">
+                      <button
+                        class="btn btn-success btn-sm"
+                        [disabled]="!selectedFiles"
+                        (click)="upload()"
+                      >
+                        Upload
+                      </button>
+                    </div> -->
+                  </div>
+                  
+                  <div *ngIf="currentFileUpload" class="progress mt-2">
+                    <div
+                      class="progress-bar progress-bar-info"
+                      role="progressbar"
+                      attr.aria-valuenow="{{ percentage }}"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      [ngStyle]="{ width: percentage + '%' }"
+                    >
+                      {{ percentage }}%
+                    </div>
+                  </div>
 
 
             </div>

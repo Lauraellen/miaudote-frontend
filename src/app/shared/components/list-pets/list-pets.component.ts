@@ -3,6 +3,7 @@ import { take } from 'rxjs';
 import { PetService } from 'src/app/services/pet/pet.service';
 declare var $: any;
 import 'slick-carousel';
+import { UploadServiceService } from 'src/app/services/upload/upload-service.service';
 
 @Component({
   selector: 'app-list-pets',
@@ -21,7 +22,8 @@ export class ListPetsComponent implements OnInit {
   constructor(
     private elementRef: ElementRef,
     private petService: PetService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private uploadService: UploadServiceService
 
   ) { }
 
@@ -62,11 +64,18 @@ export class ListPetsComponent implements OnInit {
         next: response => {
           this.listPets = response;
           this.loadingPets = false;
-
+          
           this.cdr.detectChanges();
           this.initializeCarousels()
           
         }
       })
+  }
+
+  getPhotos(fileName: string) {
+    this.uploadService.getAllFiles(fileName).snapshotChanges().pipe(
+    ).subscribe(res => {
+      console.debug(res)
+    })
   }
 }

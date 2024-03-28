@@ -102,6 +102,10 @@
                 <button *ngIf="modeEdit" class="btn btn-cancel" (click)="cancelEdit()">Cancelar </button>
             </div>
     
+            <div style="padding-right: 6px;">
+                <button *ngIf="!modeEdit" class="btn btn-cancel" (click)="logout()"> Sair </button>
+            </div>
+
             <button *ngIf="!modeEdit" class="btn btn-edit" (click)="editProfile()">Editar </button>
     
             <button *ngIf="modeEdit" class="btn btn-edit" (click)="saveProfile()">Salvar </button>
@@ -111,6 +115,10 @@
     <ng-container *ngIf="!person">
         <div class="d-flex justify-content-center mt-5">
             <button class="btn btn-edit" (click)="goToLogin()"> Faça login! </button>
+        </div>
+
+        <div class="d-flex justify-content-center mt-5">
+            <button class="btn btn-edit" (click)="goToLogin(true)"> Criar uma nova conta </button>
         </div>
     </ng-container>
 

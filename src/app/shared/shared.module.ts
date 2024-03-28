@@ -6,6 +6,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FilterComponent } from './components/filter/filter.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ListPetsComponent } from './components/list-pets/list-pets.component';
+import { NewPetComponent } from './components/new-pet/new-pet.component';
 
 
 
@@ -14,7 +15,8 @@ import { ListPetsComponent } from './components/list-pets/list-pets.component';
     SidebarComponent,
     FilterComponent,
     ProfileComponent,
-    ListPetsComponent
+    ListPetsComponent,
+    NewPetComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { ListPetsComponent } from './components/list-pets/list-pets.component';
     SidebarComponent,
     FilterComponent,
     ProfileComponent,
-    ListPetsComponent
+    ListPetsComponent,
+    NewPetComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

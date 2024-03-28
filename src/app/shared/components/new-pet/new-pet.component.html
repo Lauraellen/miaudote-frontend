@@ -1,0 +1,86 @@
+<div class="container" style="margin-bottom: 15px;">
+
+    <div class="row">
+
+        <form [formGroup]="formPets">
+            <div class="row">
+                <div class="form-group col-md-6 mt-3">
+                    <label for="name" class="ng-select-label">Nome do pet</label>
+                    <input class="form-control" id="name" formControlName="name" placeholder="Nome do pet">
+                </div>
+
+                <div class="form-group col-md-3 mt-3">
+                    <label for="gender" class="ng-select-label">Sexo</label>
+                    <div class="custom-select-container">
+                        <select class="form-control custom-select" id="gender" formControlName="gender">
+                            <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
+                            <option *ngFor="let gender of genders" [value]="gender.Id">{{ gender.Name }}</option>
+                        </select>
+                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3 mt-3">
+                    <label for="breed" class="ng-select-label">Raça</label>
+                    <input class="form-control" id="breed" formControlName="breed" placeholder="Raça">
+                </div>
+
+                <div class="form-group col-md-3 mt-3">
+                    <label for="species" class="ng-select-label">Espécie</label>
+                    <input class="form-control" id="species" formControlName="species" placeholder="Espécie">
+                </div>
+
+                <div class="form-group col-md-3 mt-3">
+                    <label for="age" class="ng-select-label">Idade</label>
+                    <input class="form-control" id="age" formControlName="age" placeholder="Idade">
+                </div>
+
+                <div class="form-group col-md-3 mt-3">
+                    <label for="state" class="ng-select-label">Estado</label>
+                    <div class="custom-select-container">
+                        <select class="form-control custom-select" id="state" formControlName="state"
+                            (change)="onStateSelect($event)">
+                            <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
+                            <option *ngFor="let state of states" [ngValue]="state">{{ state.nome }}</option>
+                            <!-- Usando ngValue para passar o objeto completo -->
+                        </select>
+
+                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+
+                    </div>
+                </div>
+
+                <div class="form-group col-md-3 mt-3">
+                    <label for="city" class="ng-select-label">Cidade</label>
+                    <div class="custom-select-container">
+                        <select class="form-control custom-select" id="city" formControlName="city">
+                            <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
+                            <option *ngFor="let city of cities" [value]="city.id">{{ city.nome }}</option>
+                        </select>
+                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6 mt-3">
+                    <label for="description" class="ng-select-label">Fale um pouco mais sobre o pet</label>
+                    <textarea  formControlName="description" id="description" rows="4" cols="50" wrap="soft"></textarea>
+
+                </div>
+
+                <div class="form-group col-md-6 mt-3">
+                    <input type="file" name="photos" (change)="onFilesSelected($event)" accept="image/jpeg, image/jpg, image/png" multiple>
+                    <button type="submit">Enviar</button>
+
+                </div>
+
+
+            </div>
+
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-edit" (click)="saveNewPet()">Salvar </button>
+            </div>
+
+        </form>
+    </div>
+</div>

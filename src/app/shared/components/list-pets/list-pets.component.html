@@ -1,4 +1,4 @@
-<div class="container" style="margin-bottom: 15px;" *ngIf="listPets.length > 0">
+<div class="container" style="margin-bottom: 15px;" *ngIf="listPets?.length > 0">
     <div class="row">
         <ng-container *ngFor="let pet of listPets">
             <div class="col-md-4">
@@ -31,11 +31,15 @@
     </div>
 </div>
 
-<ng-container *ngIf="listPets.length <= 0 && getById">
+<ng-container *ngIf="listPets?.length <= 0 && getById">
     <div class="col-md-12 d-flex justify-content-center mt-5">
         Não há nenhum aumiguinho cadastrado!
     </div>
     <div class="d-flex justify-content-center">
         <button class="btn btn-new-pet">Cadastrar novo pet</button>
     </div>
+
+    <ng-container>
+        <app-new-pet></app-new-pet>
+    </ng-container>
 </ng-container>

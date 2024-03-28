@@ -20,7 +20,9 @@ export class ProfileComponent implements OnInit {
   showConfirmPassword: boolean = false;
   modeEdit: boolean = false;
   formProfile!: FormGroup;
+  
   constructor(
+
     private authService: AuthService,
     private userService: UserService,
     private fb: FormBuilder,
@@ -104,9 +106,17 @@ export class ProfileComponent implements OnInit {
     
   }
 
-  goToLogin() {
-    this.router.navigate(['/login'])
+  goToLogin(isNewAccount?: boolean) {
+    if(isNewAccount) {
+      this.router.navigate(['/login'], { queryParams: { isNew: isNewAccount }})
+    } else {
+      this.router.navigate(['/login'])
+    }
+  }
 
+  logout() {
+    localStorage.clear();
+    location.reload();
   }
  
 }

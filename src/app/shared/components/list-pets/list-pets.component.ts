@@ -13,7 +13,7 @@ import { UploadServiceService } from 'src/app/services/upload/upload-service.ser
 export class ListPetsComponent implements OnInit {
 
   @Input() getById: boolean = false;
-  @Input() personId: number = 0;
+  @Input() personId: string = '';
 
   listPets: any;
   loadingPets: boolean = false;
@@ -28,13 +28,14 @@ export class ListPetsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if(this.getById) {
+    if (this.getById) {
       console.debug(this.personId)
+      this.getListPetsByUser();
       this.listPets = []
     } else {
       this.getPets();
     }
-   
+
   }
 
   initializeCarousels() {
@@ -64,10 +65,26 @@ export class ListPetsComponent implements OnInit {
         next: response => {
           this.listPets = response;
           this.loadingPets = false;
-          
+
           this.cdr.detectChanges();
           this.initializeCarousels()
-          
+
+        }
+      })
+  }
+
+
+  getListPetsByUser() {
+    this.loadingPets = true;
+    this.petService.getPetsByUser(this.personId).pipe(take(1))
+      .subscribe({
+        next: response => {
+          this.listPets = response;
+          this.loadingPets = false;
+
+          this.cdr.detectChanges();
+          this.initializeCarousels()
+
         }
       })
   }

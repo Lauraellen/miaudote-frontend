@@ -30,8 +30,8 @@ export class PetService {
   }
 
   //ex. body: {"idUser": 123456789}
-  getPetsByUser(body: any) {
-    return this.http.post(`${environment.url}/getPetsByUser`, body)
+  getPetsByUser(idUser: string) {
+    return this.http.get(`${environment.url}/getPetsByUser/${idUser}`)
   }
 
   //ex. body: {"city": "Santa Rita do Sapucaí"}

@@ -1,115 +1,97 @@
 <div class="container" style="margin-bottom: 15px;">
 
-    <div class="row">
+  <div class="row">
 
-        <form [formGroup]="formPets">
-            <div class="row">
-                <div class="form-group col-md-6 mt-3">
-                    <label for="name" class="ng-select-label">Nome do pet</label>
-                    <input class="form-control" id="name" formControlName="name" placeholder="Nome do pet">
-                </div>
+    <form [formGroup]="formPets">
+      <div class="row">
+        <div class="form-group col-md-6 mt-3">
+          <label for="name" class="ng-select-label">Nome do pet</label>
+          <input class="form-control" id="name" formControlName="name" placeholder="Nome do pet">
+        </div>
 
-                <div class="form-group col-md-3 mt-3">
-                    <label for="gender" class="ng-select-label">Sexo</label>
-                    <div class="custom-select-container">
-                        <select class="form-control custom-select" id="gender" formControlName="gender">
-                            <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
-                            <option *ngFor="let gender of genders" [value]="gender.Id">{{ gender.Name }}</option>
-                        </select>
-                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
-                    </div>
-                </div>
+        <div class="form-group col-md-3 mt-3">
+          <label for="gender" class="ng-select-label">Sexo</label>
+          <div class="custom-select-container">
+            <select class="form-control custom-select" id="gender" formControlName="gender">
+              <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
+              <option *ngFor="let gender of genders" [value]="gender.Id">{{ gender.Name }}</option>
+            </select>
+            <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+          </div>
+        </div>
 
-                <div class="form-group col-md-3 mt-3">
-                    <label for="breed" class="ng-select-label">Raça</label>
-                    <input class="form-control" id="breed" formControlName="breed" placeholder="Raça">
-                </div>
+        <div class="form-group col-md-3 mt-3">
+          <label for="breed" class="ng-select-label">Raça</label>
+          <input class="form-control" id="breed" formControlName="breed" placeholder="Raça">
+        </div>
 
-                <div class="form-group col-md-3 mt-3">
-                    <label for="idSpecie" class="ng-select-label">Espécie</label>
-                    <input class="form-control" id="idSpecie" formControlName="idSpecie" placeholder="Espécie">
-                </div>
+        <div class="form-group col-md-3 mt-3">
+          <label for="idSpecie" class="ng-select-label">Espécie</label>
+          <input class="form-control" id="idSpecie" formControlName="idSpecie" placeholder="Espécie">
+        </div>
 
-                <div class="form-group col-md-3 mt-3">
-                    <label for="age" class="ng-select-label">Idade</label>
-                    <input class="form-control" id="age" formControlName="age" placeholder="Idade">
-                </div>
+        <div class="form-group col-md-3 mt-3">
+          <label for="age" class="ng-select-label">Idade</label>
+          <input class="form-control" id="age" formControlName="age" placeholder="Idade">
+        </div>
 
-                <div class="form-group col-md-3 mt-3">
-                    <label for="idState" class="ng-select-label">Estado</label>
-                    <div class="custom-select-container">
-                        <select class="form-control custom-select" id="idState" formControlName="idState"
-                            (change)="onStateSelect($event)">
-                            <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
-                            <option *ngFor="let state of states" [ngValue]="state">{{ state.nome }}</option>
-                            <!-- Usando ngValue para passar o objeto completo -->
-                        </select>
+        <div class="form-group col-md-3 mt-3">
+          <label for="idState" class="ng-select-label">Estado</label>
+          <div class="custom-select-container">
+            <select class="form-control custom-select" id="idState" formControlName="idState"
+              (change)="onStateSelect($event)">
+              <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
+              <option *ngFor="let state of states" [ngValue]="state">{{ state.nome }}</option>
+              <!-- Usando ngValue para passar o objeto completo -->
+            </select>
 
-                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+            <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
 
-                    </div>
-                </div>
+          </div>
+        </div>
 
-                <div class="form-group col-md-3 mt-3">
-                    <label for="idCity" class="ng-select-label">Cidade</label>
-                    <div class="custom-select-container">
-                        <select class="form-control custom-select" id="idCity" formControlName="idCity">
-                            <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
-                            <option *ngFor="let city of cities" [value]="city.id">{{ city.nome }}</option>
-                        </select>
-                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+        <div class="form-group col-md-3 mt-3">
+          <label for="idCity" class="ng-select-label">Cidade</label>
+          <div class="custom-select-container">
+            <select class="form-control custom-select" id="idCity" formControlName="idCity">
+              <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
+              <option *ngFor="let city of cities" [value]="city.id">{{ city.nome }}</option>
+            </select>
+            <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
 
-                    </div>
-                </div>
+          </div>
+        </div>
 
-                <div class="form-group col-md-6 mt-3">
-                    <label for="description" class="ng-select-label">Fale um pouco mais sobre o pet</label>
-                    <textarea  formControlName="description" id="description" rows="4" cols="50" wrap="soft"></textarea>
+        <div class="form-group col-md-6 mt-3">
+          <label for="description" class="ng-select-label">Fale um pouco mais sobre o pet</label>
+          <textarea class="form-control" formControlName="description" id="description" rows="4" cols="50" wrap="soft"></textarea>
 
-                </div>
+        </div>
 
-                <div class="row">
-                    <div class="col-8">
-                      <label>
-                        <input
-                          type="file"
-                          class="text-nowrap text-truncate"
-                          (change)="selectFile($event)"
-                        />
-                      </label>
-                    </div>
-                  
-                    <!-- <div class="col-4">
-                      <button
-                        class="btn btn-success btn-sm"
-                        [disabled]="!selectedFiles"
-                        (click)="upload()"
-                      >
-                        Upload
-                      </button>
-                    </div> -->
-                  </div>
-                  
-                  <div *ngIf="currentFileUpload" class="progress mt-2">
-                    <div
-                      class="progress-bar progress-bar-info"
-                      role="progressbar"
-                      attr.aria-valuenow="{{ percentage }}"
-                      aria-valuemin="0"
-                      aria-valuemax="100"
-                      [ngStyle]="{ width: percentage + '%' }"
-                    >
-                      {{ percentage }}%
-                    </div>
-                  </div>
+        <div class="row mt-3">
+          <div class="col-8">
+            <label class="custom-file-upload">
+              <input type="file" [multiple]="true" class="text-nowrap text-truncate" (change)="selectFile($event)" />
+              
+            </label>
+          </div>
+        </div>
+
+        <div *ngIf="currentFileUploads.length > 0" class="progress mt-2">
+          <div class="progress-bar bg-custom" role="progressbar" attr.aria-valuenow="{{ percentage }}"
+            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
+            {{ percentage }}%
+          </div>
+        </div>
+        
 
 
-            </div>
+      </div>
 
-            <div class="d-flex justify-content-end mt-3">
-                <button class="btn btn-edit" (click)="saveNewPet()">Salvar </button>
-            </div>
+      <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-edit" (click)="saveNewPet()">Salvar </button>
+      </div>
 
-        </form>
-    </div>
+    </form>
+  </div>
 </div>

@@ -15,7 +15,9 @@ import { UploadServiceService } from 'src/app/services/upload/upload-service.ser
 export class NewPetComponent implements OnInit {
 
   selectedFiles?: FileList;
-  currentFileUpload?: FileUpload;
+  // currentFileUpload?: FileUpload;
+  currentFileUploads: FileUpload[] = [];
+
   percentage: number | undefined = 0;
   filesUploaded: any[] = [];
 
@@ -65,24 +67,27 @@ export class NewPetComponent implements OnInit {
   }
 
   saveNewPet() {
-    console.debug(this.filesUploaded)
-    console.debug(this.currentFileUpload)
+    console.debug(this.filesUploaded);
+    console.debug(this.currentFileUploads);
     const userId = this.authService.getUserId();
-    console.debug(this.selectedFiles)
-
-    const files = [];
-
-    files.push({url: this.currentFileUpload?.url, alt: this.currentFileUpload?.name})
+    console.debug(this.selectedFiles);
   
-    const body = this.formPets.getRawValue()
-    body.idUser = userId
+    const files = [];
+  
+    // Adicione todos os arquivos à lista de files
+    for (const fileUpload of this.currentFileUploads) {
+      files.push({ url: fileUpload.url, alt: fileUpload.name });
+    }
+    
+    const body = this.formPets.getRawValue();
+    body.idUser = userId;
     body.photos = files;
-    body.idState = body.idState.id
-
+    body.idState = body.idState.id;
+  
     this.petsService.createPet(body).subscribe(res => {
-      console.debug(res)
-    })
-    console.debug(JSON.stringify(body))
+      console.debug(res);
+    });
+    console.debug(body);
   }
 
   selectFile(event: any): void {
@@ -92,45 +97,43 @@ export class NewPetComponent implements OnInit {
 
   upload(): void {
     if (this.selectedFiles) {
-      const file: File | null = this.selectedFiles.item(0);
-      this.selectedFiles = undefined;
-
-      if (file) {
-        this.currentFileUpload = new FileUpload(file);
-        console.debug('currentFileUpload => ', this.currentFileUpload)
-        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+      // Limita o número de arquivos selecionados a 5
+      const files: FileList = this.selectedFiles;
+  
+      // Itera sobre os arquivos selecionados
+      for (let i = 0; i < files.length; i++) {
+        const file: File = files[i];
+        const fileUpload: FileUpload = new FileUpload(file);
+        this.currentFileUploads.push(fileUpload);
+  
+        this.uploadService.pushFileToStorage(fileUpload).subscribe(
           (percentage: number | undefined) => {
             this.percentage = percentage;
           }
         );
-
-
-        // const url =  this.uploadService.pushFileToStorage(this.currentFileUpload).url;
-        // const alt =  this.uploadService.pushFileToStorage(this.currentFileUpload).alt;
-        // this.uploadService.pushFileToStorage(this.currentFileUpload).percentageChanges.pipe().subscribe(
-        //   (res: any) => {
-        //     this.percentage = res;
-        //     console.debug(res)
-
-        //     if(this.percentage === 100) {
-        //       this.filesUploaded.push({url: url, alt: alt})
-        //     }
-        //   }
-        // )
       }
-
-      // file => {
-      //   console.debug('percentage => ', file)
-      //   // this.percentage = Math.round(file.percentage ? file.percentage : 0);
-      //   this.filesUploaded.push({
-      //     url: file.url, alt: file.name
-      //   })
-      // },
-      // error => {
-      //   console.log(error);
-      // }
+  
+      // Limpa a lista de arquivos selecionados
+      this.selectedFiles = undefined;
     }
   }
+
+  // upload(): void {
+  //   if (this.selectedFiles) {
+  //     const file: File | null = this.selectedFiles.item(0);
+  //     this.selectedFiles = undefined;
+
+  //     if (file) {
+  //       this.currentFileUpload = new FileUpload(file);
+  //       console.debug('currentFileUpload => ', this.currentFileUpload)
+  //       this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+  //         (percentage: number | undefined) => {
+  //           this.percentage = percentage;
+  //         }
+  //       );
+  //     }
+  //   }
+  // }
 
   onStateSelect(event: any) {
     const state = this.formPets.get('idState')?.value;

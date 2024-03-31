@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs';
 import { IbgeService } from 'src/app/services/ibge/ibge.service';
+import { PetService } from 'src/app/services/pet/pet.service';
+import { SpecieService } from 'src/app/services/specie/specie.service';
 
 @Component({
   selector: 'app-filter',
@@ -11,16 +13,8 @@ import { IbgeService } from 'src/app/services/ibge/ibge.service';
 export class FilterComponent implements OnInit {
 
   formFilter!: FormGroup;
-  species: any[] = [
-    {
-      Id: 1,
-      Name: 'Cachorro'
-    },
-    {
-      Id: 2,
-      Name: 'Gato'
-    }
-  ];
+  species: any[] = [];
+  agePets: any[] = [];
 
   genders: any[] = [
     {
@@ -51,21 +45,40 @@ export class FilterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private ibgeService: IbgeService
+    private ibgeService: IbgeService,
+    private specieService: SpecieService,
+    private petsService: PetService
   ) { }
 
   ngOnInit(): void {
     this.formFilter = this.fb.group({
       species: [0],
       gender: [0],
-      minAge: [null, [Validators.min(0)]],
-      maxAge: [null, [Validators.min(0)]],
+      age: [0],
       state: [0],
       city: [0],
       breed: [0]
     });
 
     this.getStates();
+    this.getSpecies();
+    this.getAgePets();
+  }
+
+  getSpecies() {
+    this.specieService.getAllSpecies().pipe(take(1)).subscribe({
+      next: (response: any) => {
+        this.species = response
+      }
+    })
+  }
+
+  getAgePets() {
+    this.petsService.getAgePets().pipe(take(1)).subscribe({
+      next: (response: any) => {
+        this.agePets = response
+      }
+    })
   }
 
   onSpeciesSelect(_event: any) {

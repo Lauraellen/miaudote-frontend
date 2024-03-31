@@ -1,4 +1,4 @@
-li {
+/* li {
     padding: 0px;
     margin: 0px;
     list-style: none;
@@ -7,8 +7,33 @@ li {
     font-size: 20px;
     padding-top: 10px;
     cursor: pointer;
+} */
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 i {
     padding-right: 10px;
 }
+
+ul li {
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    padding: 15px; /* Ajuste conforme necessário */
+    margin-bottom: 5px; /* Ajuste conforme necessário */
+    font-size: 20px;
+}
+
+ul li:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.selected {
+    background-color: #f0f0f0; /* Cor de fundo quando selecionado */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra quando selecionado */
+}
+

@@ -7,6 +7,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ListPetsComponent } from './components/list-pets/list-pets.component';
 import { NewPetComponent } from './components/new-pet/new-pet.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 
@@ -16,7 +17,8 @@ import { NewPetComponent } from './components/new-pet/new-pet.component';
     FilterComponent,
     ProfileComponent,
     ListPetsComponent,
-    NewPetComponent
+    NewPetComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { NewPetComponent } from './components/new-pet/new-pet.component';
     FilterComponent,
     ProfileComponent,
     ListPetsComponent,
-    NewPetComponent
+    NewPetComponent,
+    ModalComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

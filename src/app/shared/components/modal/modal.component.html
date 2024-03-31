@@ -1,0 +1,16 @@
+<div class="modal-header" [style]="styleHeader">
+    <h5 class="modal-title mt-0" [style]="styleHeader">{{title}}</h5>
+    <button *ngIf="closeButtonHeader" type="button" class="close" (click)="onButtonClicked(false)" aria-label="Close">
+        <i class="fa fa-times-circle"></i>
+      </button>
+</div>
+<div class="modal-body" [style]="styleBody">
+    <ng-content select="[body]"></ng-content>
+</div>
+<div class="modal-footer" [style]="styleFooter">
+    <button *ngIf="hasButtons" type="button" class="btn btn-edit" data-dismiss="modal" (click)="onButtonClicked(false)">
+   <span class="body-default">{{cancelButtonTitle}}</span> </button>
+    <button *ngIf="hasButtons && showConfirmButton" type="submit" class="btn btn-edit" (click)="onButtonClicked(true)" [disabled]="isConfirmBtnDisabled">
+      <span class="body-default">{{checkButtonTitle}}</span>  </button>
+    <ng-content select="[footer]"></ng-content>
+</div>

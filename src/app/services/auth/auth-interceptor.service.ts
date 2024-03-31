@@ -4,8 +4,10 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -25,6 +27,17 @@ export class AuthInterceptor implements HttpInterceptor {
         },
       });
     }
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) { // Token expirado
+          // Limpar dados de autenticação
+          this.authService.clearAuthData();
+          // Redirecionar para a página de login
+          // Por exemplo:
+          // this.router.navigate(['/login']);
+        }
+        return throwError(error);
+      })
+    );
   }
 }

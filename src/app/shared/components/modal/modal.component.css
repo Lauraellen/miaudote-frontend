@@ -1,0 +1,38 @@
+.modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+
+
+.modal-header {
+    border-bottom: none;
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+}
+
+.modal-footer {
+    border-top: none;
+}
+
+.hiddenBtns {
+    display: none;
+}
+
+.close {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.btn-edit {
+    margin: 5px 0;
+    border-radius: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+    background-color: #AACBC4;
+    color: white;
+    font-weight: bold;
+}

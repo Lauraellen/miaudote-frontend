@@ -125,10 +125,42 @@
     <hr>
 
     <div class="row" *ngIf="person">
-        <div class="mt-2">
-            <h2>Meus pets cadastrados</h2>
+        <div class="d-flex justify-content-between">
+            <div class="mt-2">
+                <h2>Meus pets cadastrados</h2>
+            </div>
+
+            <button class="btn btn-edit" (click)="openModalNewPet()"> Adicionar novo pet </button>
         </div>
+        
 
         <app-list-pets [getById]="true" [personId]="person._id"></app-list-pets>
     </div>
 </div>
+
+<ng-template #newPet let-modal>
+    <app-modal [title]="'Novo pet'"
+    (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+        <div body>
+            <app-new-pet></app-new-pet>
+        </div>
+    </app-modal>
+</ng-template>
+
+<!-- Modal
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Adicionar Novo Pet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div> -->

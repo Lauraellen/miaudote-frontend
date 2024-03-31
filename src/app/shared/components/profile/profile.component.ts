@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.sevice';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +13,8 @@ import { UserService } from 'src/app/services/user/user.sevice';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+  @ViewChild('newPet') newPet!: TemplateRef<any>;
 
   userId!: string;
   loadingPerson: boolean = false;
@@ -27,7 +31,7 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router,
-
+    private utilService: UtilsService
   ){
 
   }
@@ -118,5 +122,12 @@ export class ProfileComponent implements OnInit {
     localStorage.clear();
     location.reload();
   }
+
+  openModalNewPet() {
+    this.utilService.openModal(this.newPet, {centered: true, size: 'lg'})
+  }
  
+  closeModal(modal: NgbActiveModal) {
+    this.utilService.closeModal(modal)
+  }
 }

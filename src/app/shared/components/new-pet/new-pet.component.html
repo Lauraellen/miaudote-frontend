@@ -26,13 +26,27 @@
         </div>
 
         <div class="form-group col-md-3 mt-3">
-          <label for="idSpecie" class="ng-select-label">Espécie</label>
-          <input class="form-control" id="idSpecie" formControlName="idSpecie" placeholder="Espécie">
+          <label for="idSpecie" class="ng-select-label">Espécie do animal</label>
+          <div class="custom-select-container">
+            <select class="form-control custom-select" id="idSpecie" formControlName="idSpecie">
+              <option value="0" selected>Selecione...</option>
+              <option *ngFor="let specie of species" [ngValue]="specie">{{ specie.type }}</option>
+            </select>
+            <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+          </div>
         </div>
 
         <div class="form-group col-md-3 mt-3">
           <label for="age" class="ng-select-label">Idade</label>
-          <input class="form-control" id="age" formControlName="age" placeholder="Idade">
+          <div class="custom-select-container">
+            <select class="form-control custom-select" id="age" formControlName="age">
+              <option [ngValue]="0" selected>Selecione</option> <!-- Opção para seleção vazia -->
+              <option *ngFor="let age of agePets" [ngValue]="age">{{ age.age }}</option>
+              <!-- Usando ngValue para passar o objeto completo -->
+            </select>
+
+            <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+          </div>
         </div>
 
         <div class="form-group col-md-3 mt-3">
@@ -62,9 +76,10 @@
           </div>
         </div>
 
-        <div class="form-group col-md-6 mt-3">
+        <div class="form-group col-md-12 mt-3">
           <label for="description" class="ng-select-label">Fale um pouco mais sobre o pet</label>
-          <textarea class="form-control" formControlName="description" id="description" rows="4" cols="50" wrap="soft"></textarea>
+          <textarea class="form-control" formControlName="description" id="description" rows="4" cols="50"
+            wrap="soft"></textarea>
 
         </div>
 
@@ -72,18 +87,18 @@
           <div class="col-8">
             <label class="custom-file-upload">
               <input type="file" [multiple]="true" class="text-nowrap text-truncate" (change)="selectFile($event)" />
-              
+
             </label>
           </div>
         </div>
 
         <div *ngIf="currentFileUploads.length > 0" class="progress mt-2">
-          <div class="progress-bar bg-custom" role="progressbar" attr.aria-valuenow="{{ percentage }}"
-            aria-valuemin="0" aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
+          <div class="progress-bar bg-custom" role="progressbar" attr.aria-valuenow="{{ percentage }}" aria-valuemin="0"
+            aria-valuemax="100" [ngStyle]="{ width: percentage + '%' }">
             {{ percentage }}%
           </div>
         </div>
-        
+
 
 
       </div>

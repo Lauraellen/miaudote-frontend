@@ -43,4 +43,9 @@ export class PetService {
   getPetsByFilter(body: any) {
     return this.http.post(`${environment.url}/getPetsByFilter`, body)
   }
+
+  getAgePets() {
+    return this.http.get(`${environment.url}/agePets`)
+
+  }
 }

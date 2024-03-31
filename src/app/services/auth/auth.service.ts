@@ -37,6 +37,10 @@ export class AuthService {
 
   login(body: any) {
     return this.http.post(`${environment.url}/login`, body);
+  }
 
+  clearAuthData(): void {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('userId');
   }
 }

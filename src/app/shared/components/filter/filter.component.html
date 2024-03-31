@@ -6,7 +6,7 @@
                 <div class="custom-select-container">
                     <select class="form-control custom-select" id="species" formControlName="species" (change)="onSpeciesSelect($event)">
                         <option value="0" selected>Todos</option>
-                        <option *ngFor="let specie of species" [value]="specie.Id">{{ specie.Name }}</option>
+                        <option *ngFor="let specie of species" [value]="specie._id">{{ specie.type }}</option>
                     </select>
                     <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
                     <!-- Ícone "x" para limpar a seleção -->
@@ -27,12 +27,17 @@
             </div>
 
             <div class="form-group mt-3">
-                <label for="minAge" class="ng-select-label">Idade Mínima</label>
-                <input type="number" class="form-control" id="minAge" formControlName="minAge" placeholder="Mínimo">
-            </div>
-            <div class="form-group mt-3">
-                <label for="maxAge" class="ng-select-label">Idade Máxima</label>
-                <input type="number" class="form-control" id="maxAge" formControlName="maxAge" placeholder="Máximo">
+                <label for="age" class="ng-select-label">Idade</label>
+                <div class="custom-select-container">
+                    <select class="form-control custom-select" id="age" formControlName="age">
+                        <option [ngValue]="0" selected>Todos</option> <!-- Opção para seleção vazia -->
+                        <option *ngFor="let age of agePets" [ngValue]="age">{{ age.age }}</option> <!-- Usando ngValue para passar o objeto completo -->
+                    </select>
+                    
+                    <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+                    <!-- Ícone "x" para limpar a seleção -->
+                    <div class="clear-selection-icon" *ngIf="formFilter.get('age')?.value" (click)="clearSelection('age')">x</div>
+                </div>
             </div>
 
             <div class="form-group mt-3">
@@ -49,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="form-group mt-3">
+            <div class="form-group mt-3 mb-3">
                 <label for="city" class="ng-select-label">Cidade</label>
                 <div class="custom-select-container">
                     <select class="form-control custom-select" id="city" formControlName="city" (change)="onCitySelect($event)">
@@ -62,18 +67,17 @@
                 </div>
             </div>
 
-            <div class="form-group mt-3">
+            <!-- <div class="form-group mt-3">
                 <label for="breed" class="ng-select-label">Raça</label>
                 <div class="custom-select-container">
                     <select class="form-control custom-select" id="breed" formControlName="breed" (change)="onBreedSelect($event)">
                         <option value="0" selected>Todos</option>
                         <option *ngFor="let breed of breeds" [value]="breed.Id">{{ breed.Name }}</option>
                     </select>
-                    <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
-                    <!-- Ícone "x" para limpar a seleção -->
+                    <div class="custom-select-arrow"></div>
                     <div class="clear-selection-icon" *ngIf="formFilter.get('breed')?.value" (click)="clearSelection('breed')">x</div>
                 </div>
-            </div>
+            </div> -->
         </form>
     </div>
 </div>

@@ -5,7 +5,9 @@ import { FileUpload } from 'src/app/models/model-upload';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { IbgeService } from 'src/app/services/ibge/ibge.service';
 import { PetService } from 'src/app/services/pet/pet.service';
+import { SpecieService } from 'src/app/services/specie/specie.service';
 import { UploadServiceService } from 'src/app/services/upload/upload-service.service';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-new-pet',
@@ -33,8 +35,9 @@ export class NewPetComponent implements OnInit {
   ];
 
   states: any = [];
-
+  agePets: any[] = [];
   cities: any = [];
+  species: any[] = [];
 
   formPets!: FormGroup;
 
@@ -43,7 +46,9 @@ export class NewPetComponent implements OnInit {
     private ibgeService: IbgeService,
     private authService: AuthService,
     private petsService: PetService,
-    private uploadService: UploadServiceService
+    private uploadService: UploadServiceService,
+    private specieService: SpecieService,
+    private utilsService: UtilsService
   ) { }
 
   ngOnInit(): void {
@@ -51,8 +56,10 @@ export class NewPetComponent implements OnInit {
       name: [null],
       gender: [0],
       breed: [null],
-      idSpecie: [null],
-      age: [null],
+      idSpecie: [0],
+      typeSpecie: [null],
+      age: [0],
+      idAge: [null],
       idState: [0],
       idCity: [0],
       description: [null],
@@ -64,6 +71,8 @@ export class NewPetComponent implements OnInit {
     });
 
     this.getStates();
+    this.getSpecies();
+    this.getAgePets();
   }
 
   saveNewPet() {
@@ -80,14 +89,39 @@ export class NewPetComponent implements OnInit {
     }
     
     const body = this.formPets.getRawValue();
+    const age = body.age;
+    const specie = body.idSpecie;
+
     body.idUser = userId;
     body.photos = files;
     body.idState = body.idState.id;
+    body.idAge = age.id;
+    body.age = age.age;
+    body.idSpecie = specie._id;
+    body.typeSpecie = specie.type;
   
     this.petsService.createPet(body).subscribe(res => {
       console.debug(res);
+      this.utilsService.dismissAllModal();
+      location.reload();
     });
     console.debug(body);
+  }
+
+  getSpecies() {
+    this.specieService.getAllSpecies().pipe(take(1)).subscribe({
+      next: (response: any) => {
+        this.species = response
+      }
+    })
+  }
+
+  getAgePets() {
+    this.petsService.getAgePets().pipe(take(1)).subscribe({
+      next: (response: any) => {
+        this.agePets = response
+      }
+    })
   }
 
   selectFile(event: any): void {

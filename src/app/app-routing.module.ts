@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainScreenComponent } from './main-screen/main-screen.component';
 import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './shared/components/profile/profile.component';
-
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -16,7 +15,10 @@ const routes: Routes = [
   },
   {
     path: "meu-perfil",
-    component: MainScreenComponent
+    component: MainScreenComponent,
+    canActivate: [authGuard],
+
+
   },
   {
     path: "",

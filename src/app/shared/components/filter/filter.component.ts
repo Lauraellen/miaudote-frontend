@@ -52,12 +52,12 @@ export class FilterComponent implements OnInit {
 
   ngOnInit(): void {
     this.formFilter = this.fb.group({
-      species: [0],
-      gender: [0],
-      age: [0],
-      state: [0],
-      city: [0],
-      breed: [0]
+      specie: [null],
+      gender: [null],
+      age: [null],
+      state: [null],
+      city: [null],
+      breed: [null]
     });
 
     this.getStates();
@@ -128,4 +128,13 @@ export class FilterComponent implements OnInit {
     }
   }
 
+  search() {
+    const body = this.formFilter.getRawValue();
+
+    this.petsService.getPetsByFilter(body).pipe(take(1)).subscribe({
+      next: (response) => {
+        this.states = response
+      }
+    })
+  }
 }

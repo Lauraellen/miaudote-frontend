@@ -95,6 +95,14 @@ p {
 }
 
 .cancel-btn {
+    margin: 5px 0;
+    border-radius: 10px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+    
     background-color: #cfc7cc;
     color: black;
     margin-right: 5px;

@@ -28,4 +28,12 @@ export class UserService {
   deleteUser(id: String) {
     return this.http.delete(`${environment.url}/user${id}`);
   }
+
+  addFavoritePet(body: any) {
+    return this.http.post(`${environment.url}/addFavoritePet`, body)
+  }
+
+  removeFavoritePet(body: any) {
+    return this.http.post(`${environment.url}/addFavoritePet`, body)
+  }
 }

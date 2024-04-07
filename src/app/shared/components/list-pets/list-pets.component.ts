@@ -6,6 +6,8 @@ import 'slick-carousel';
 import { UploadServiceService } from 'src/app/services/upload/upload-service.service';
 import { UtilsService } from 'src/app/services/utils/utils.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user/user.sevice';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-list-pets',
@@ -18,29 +20,36 @@ export class ListPetsComponent implements OnInit {
   @ViewChild('deletePet') deletePet!: TemplateRef<any>;
 
   @Input() getById: boolean = false;
-  @Input() personId: string = '';
   @Input() showButtonsToMenu: boolean = true;
   @Input() showButtonToProfile: boolean = false;
+  @Input() showButtonToFavorite: boolean = false;
 
   listPets: any;
   loadingPets: boolean = false;
   slickCarousels: any[] = [];
   petToEdit: any;
   pet!: any;
+  personId: string = '';
 
   constructor(
     private elementRef: ElementRef,
     private petService: PetService,
     private cdr: ChangeDetectorRef,
     private uploadService: UploadServiceService,
-    private utilService: UtilsService
+    private utilService: UtilsService,
+    private userService: UserService,
+    private authService: AuthService
 
   ) { }
 
   ngOnInit(): void {
+    this.personId = this.authService.getUserId();
     if (this.getById) {
-      console.debug(this.personId)
-      this.getListPetsByUser();
+      if(this.showButtonToFavorite) {
+        this.getListFavoritePetsByUser()
+      } else {
+        this.getListPetsByUser();
+      }
       this.listPets = []
     } else {
       this.getPets();
@@ -100,6 +109,21 @@ export class ListPetsComponent implements OnInit {
       })
   }
 
+  getListFavoritePetsByUser() {
+    this.loadingPets = true;
+    this.petService.getSavedPetsByUser(this.personId).pipe(take(1))
+      .subscribe({
+        next: response => {
+          this.listPets = response;
+          this.loadingPets = false;
+          console.debug(this.listPets)
+          this.cdr.detectChanges();
+          this.initializeCarousels()
+
+        }
+      })
+  }
+
   getPhotos(fileName: string) {
     this.uploadService.getAllFiles(fileName).snapshotChanges().pipe(
     ).subscribe(res => {
@@ -122,7 +146,18 @@ export class ListPetsComponent implements OnInit {
     this.utilService.closeModal(modal)
   }
 
-  adoptPet(pet: any) {
+  addFavoritePet(pet: any) {
+    const body = {
+      idPet: pet._id,
+      idUser: this.personId
+    }
+
+    this.userService.addFavoritePet(body).pipe(take(1))
+    .subscribe({
+      next: response => {
+        console.debug(response)
+      }
+    })
     console.debug(pet)
   }
 
@@ -136,5 +171,20 @@ export class ListPetsComponent implements OnInit {
         }
       }
     })
+  }
+
+  removeFromFavorite(pet: any) {
+    const body = {
+      idPet: pet._id,
+      idUser: this.personId
+    }
+
+    this.userService.removeFavoritePet(body).pipe(take(1))
+    .subscribe({
+      next: response => {
+        console.debug(response)
+      }
+    })
+    console.debug(pet)
   }
 }

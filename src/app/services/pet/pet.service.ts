@@ -38,6 +38,11 @@ export class PetService {
   getPetsByCity(body: any) {
     return this.http.post(`${environment.url}/getPetsByCity`, body)
   }
+  
+
+  getSavedPetsByUser(idUser: string) {
+    return this.http.get(`${environment.url}/getSavedPetsByUser/${idUser}`)
+  }
 
   //ex. body: {"status": "available", "race": "Vira lata"}
   getPetsByFilter(body: any) {

@@ -17,8 +17,11 @@ const routes: Routes = [
     path: "meu-perfil",
     component: MainScreenComponent,
     canActivate: [authGuard],
-
-
+  },
+  {
+    path: "possiveis-aumigos",
+    component: MainScreenComponent,
+    canActivate: [authGuard],
   },
   {
     path: "",

@@ -9,13 +9,17 @@
                                 <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
                                 <div class="carousel-buttons" *ngIf="showButtonsToMenu">
                                     <button class="btn btn-pink adopt-btn">Adotar amiguinho agora!</button>
-                                    <button class="btn btn-white fav-btn" (click)="adoptPet(pet)">Possível aumiguinho</button>
+                                    <button class="btn btn-white fav-btn" (click)="addFavoritePet(pet)">Possível aumiguinho</button>
                                 </div>
 
                                 <div class="carousel-buttons" *ngIf="showButtonToProfile">
                                     <button class="btn btn-pink adopt-btn" (click)="openModalToEdit(pet)">Editar</button>
                                     <button class="btn btn-pink adopt-btn" (click)="openModalToConfirm(pet)">Excluir</button>
+                                </div>
 
+                                
+                                <div class="carousel-buttons" *ngIf="showButtonToFavorite">
+                                    <button class="btn btn-pink cancel-btn" (click)="removeFromFavorite(pet)">Remover</button>
                                 </div>
                             </div>
                         </div>
@@ -24,7 +28,7 @@
                 <div style="background-color: rgba(202, 198, 198, 0.658);">
                     <div class="d-flex justify-content-center">
                         <span class="name">{{pet.name}} </span>
-                        <span *ngIf="pet.age">- {{pet.age.age}} - </span>
+                        <span *ngIf="pet.age"> - {{pet.age.age}} - </span>
                         <span *ngIf="pet.breed">{{pet.breed}} - </span>
                         <span *ngIf="pet.city">{{pet.city}}</span>
                     </div>
@@ -39,7 +43,7 @@
 
 <ng-container *ngIf="listPets?.length == 0 && getById">
     <div class="col-md-12 d-flex justify-content-center mt-5">
-        Não há nenhum aumiguinho cadastrado!
+        Não há nenhum aumiguinho {{showButtonToProfile ? 'cadastrado' : 'salvo'}}!
     </div>
 </ng-container>
 

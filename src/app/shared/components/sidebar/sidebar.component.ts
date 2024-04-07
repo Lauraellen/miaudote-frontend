@@ -22,6 +22,14 @@ export class SidebarComponent {
     console.debug('auqi')
   }
 
+  navigateToFavoritePets() {
+    this.isHomeSelected = false;
+    this.isNotificationsSelected = false;
+    this.isBookmarksSelected = true;
+    this.isProfileSelected = false;
+    this.router.navigate(['/possiveis-aumigos'], { queryParams: { isFavorite: true }})
+  }
+
   navigateToHome() {
     this.isHomeSelected = true;
     this.isNotificationsSelected = false;

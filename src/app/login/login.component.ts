@@ -28,11 +28,6 @@ export class LoginComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe((res: any) => {
-      console.debug(res)
-      this.isNewAccount = res.isNew == "true" || res.isNew == true ? true : false;
-    });
-
     this.loginForm = this.formBuilder.group({
       email: [null, [Validators.required]],
       password: [null, [Validators.required]],
@@ -78,5 +73,13 @@ export class LoginComponent implements OnInit {
 
       },
     })
+  }
+
+  createAccount() {
+    this.isNewAccount = true;
+  }
+
+  goToLogin() {
+    this.isNewAccount = false
   }
 }

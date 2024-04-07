@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { take } from 'rxjs';
 import { FileUpload } from 'src/app/models/model-upload';
@@ -16,6 +16,7 @@ import { UtilsService } from 'src/app/services/utils/utils.service';
 })
 export class NewPetComponent implements OnInit {
 
+  @Input() pet!: any;
   selectedFiles?: FileList;
   // currentFileUpload?: FileUpload;
   currentFileUploads: FileUpload[] = [];
@@ -56,50 +57,52 @@ export class NewPetComponent implements OnInit {
       name: [null],
       gender: [0],
       breed: [null],
-      idSpecie: [0],
-      typeSpecie: [null],
+      specie: [0],
       age: [0],
-      idAge: [null],
       idState: [0],
       idCity: [0],
       description: [null],
       status: ['Disponível'],
       registrationDate: [new Date()],
-      idUser: [null],
+      user: [null],
       photos: [null],
-
     });
 
     this.getStates();
     this.getSpecies();
     this.getAgePets();
+
+    if (this.pet) {
+      this.setData();
+    }
+  }
+
+  setData() {
+    this.formPets.patchValue(this.pet)
+    this.formPets.get('age')?.setValue(this.pet.age._id)
+    this.formPets.get('specie')?.setValue(this.pet.specie._id)
+
   }
 
   saveNewPet() {
-    console.debug(this.filesUploaded);
-    console.debug(this.currentFileUploads);
     const userId = this.authService.getUserId();
-    console.debug(this.selectedFiles);
-  
+
     const files = [];
-  
+
     // Adicione todos os arquivos à lista de files
     for (const fileUpload of this.currentFileUploads) {
       files.push({ url: fileUpload.url, alt: fileUpload.name });
     }
-    
+
     const body = this.formPets.getRawValue();
     const age = body.age;
-    const specie = body.idSpecie;
+    const specie = body.specie;
 
-    body.idUser = userId;
+    body.user = {_id: userId};
     body.photos = files;
-    body.idState = body.idState.id;
-    body.idAge = age.id;
-    body.age = age.age;
-    body.idSpecie = specie._id;
-    body.typeSpecie = specie.type;
-  
+    body.specie = {_id: body.specie};
+    body.age = {_id: body.age}
+
     this.petsService.createPet(body).subscribe(res => {
       console.debug(res);
       this.utilsService.dismissAllModal();
@@ -133,44 +136,27 @@ export class NewPetComponent implements OnInit {
     if (this.selectedFiles) {
       // Limita o número de arquivos selecionados a 5
       const files: FileList = this.selectedFiles;
-  
+
       // Itera sobre os arquivos selecionados
       for (let i = 0; i < files.length; i++) {
         const file: File = files[i];
         const fileUpload: FileUpload = new FileUpload(file);
         this.currentFileUploads.push(fileUpload);
-  
+
         this.uploadService.pushFileToStorage(fileUpload).subscribe(
           (percentage: number | undefined) => {
             this.percentage = percentage;
           }
         );
       }
-  
+
       // Limpa a lista de arquivos selecionados
       this.selectedFiles = undefined;
     }
   }
 
-  // upload(): void {
-  //   if (this.selectedFiles) {
-  //     const file: File | null = this.selectedFiles.item(0);
-  //     this.selectedFiles = undefined;
-
-  //     if (file) {
-  //       this.currentFileUpload = new FileUpload(file);
-  //       console.debug('currentFileUpload => ', this.currentFileUpload)
-  //       this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
-  //         (percentage: number | undefined) => {
-  //           this.percentage = percentage;
-  //         }
-  //       );
-  //     }
-  //   }
-  // }
-
   onStateSelect(event: any) {
-    const state = this.formPets.get('idState')?.value;
+    const state = this.states.find((e: any) => e.id == this.formPets.get('idState')?.value)
     this.ibgeService.getCitiesByStated(state.sigla).pipe(take(1)).subscribe({
       next: (response) => {
         this.cities = response;
@@ -182,6 +168,12 @@ export class NewPetComponent implements OnInit {
     this.ibgeService.getStates().pipe(take(1)).subscribe({
       next: (response) => {
         this.states = response
+
+        if(this.pet) {
+          this.formPets.get('idState')?.setValue(parseInt(this.pet.idState))
+          const sigla = this.states.find((e: any) => e.id == parseInt(this.pet.idState))
+          this.onStateSelect(sigla);
+        }
       }
     })
   }

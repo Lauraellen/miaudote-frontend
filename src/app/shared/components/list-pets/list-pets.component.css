@@ -61,13 +61,10 @@
     /* Adiciona altura automática para manter a proporção da imagem */
 }
 
-.image-container img {
-    width: 100%;
-    height: auto;
-}
-
-.image-container:hover img {
-    opacity: 0.7;
+.image-container {
+    position: relative;
+    height: 400px; 
+    overflow: hidden; 
 }
 
 span {
@@ -95,4 +92,15 @@ p {
     background-color: #AACBC4;
     color: white;
     font-weight: bold;
+}
+
+.cancel-btn {
+    background-color: #cfc7cc;
+    color: black;
+    margin-right: 5px;
+}
+
+.confirm-btn {
+    background-color: red;
+    color: white;
 }

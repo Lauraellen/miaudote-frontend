@@ -1,5 +1,4 @@
 <div class="container-fluid">
-    <!-- quando for acesso pelo celular, é melhor a sidebar fechar e abir quando clicar -->
     <div class="sidebar">
         <div style="padding-top: 15%;">
             <app-sidebar></app-sidebar>
@@ -11,7 +10,7 @@
     </div>
     <div class="conteudo">
         <ng-container *ngIf="!isProfile">
-            <app-list-pets></app-list-pets>
+            <app-list-pets [showButtonToProfile]="false" [showButtonsToMenu]="true"></app-list-pets>
         </ng-container>
 
         <ng-container *ngIf="isProfile">

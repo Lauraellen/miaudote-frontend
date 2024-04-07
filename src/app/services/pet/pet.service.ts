@@ -26,7 +26,7 @@ export class PetService {
   }
 
   deletePet(id: String) {
-    return this.http.delete(`${environment.url}/pet${id}`);
+    return this.http.delete(`${environment.url}/pet/${id}`);
   }
 
   //ex. body: {"idUser": 123456789}
@@ -46,6 +46,5 @@ export class PetService {
 
   getAgePets() {
     return this.http.get(`${environment.url}/agePets`)
-
   }
 }

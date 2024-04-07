@@ -1,3 +1,9 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+}
 .container-fluid {
     display: grid;
     grid-template-columns: [sidebar] 18% [conteudo] 80%;

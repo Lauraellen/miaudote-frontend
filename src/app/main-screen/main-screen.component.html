@@ -4,7 +4,7 @@
             <app-sidebar></app-sidebar>
         </div>
 
-        <div class="filter">
+        <div class="filter" *ngIf="!isProfile && !isFavorite">
             <app-filter></app-filter>
         </div>
     </div>

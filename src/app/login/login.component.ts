@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
     const body =  {...this.loginForm.getRawValue()}
     body.login = body.email;
     body.idSavedPets = []
-    console.debug(body)
   
     this.userService.createUser(body).pipe(take(1))
     .subscribe({

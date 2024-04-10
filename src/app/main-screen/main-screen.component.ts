@@ -21,9 +21,7 @@ export class MainScreenComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((res: any) => {
-      console.debug(res)
       this.isProfile = res.isProfile == "true" || res.isProfile == true ? true : false;
-
       this.isFavorite = res.isFavorite == "true" || res.isFavorite == true ? true : false;
     });
   }

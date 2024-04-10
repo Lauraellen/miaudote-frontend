@@ -19,7 +19,6 @@ export class SidebarComponent {
   ){}
   
   navigateTo() {
-    console.debug('auqi')
   }
 
   navigateToFavoritePets() {

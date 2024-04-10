@@ -99,16 +99,21 @@ export class NewPetComponent implements OnInit {
     const specie = body.specie;
 
     body.user = {_id: userId};
-    body.photos = files;
+    body.photos = this.pet.photos ?? files ;
     body.specie = {_id: body.specie};
     body.age = {_id: body.age}
 
-    this.petsService.createPet(body).subscribe(res => {
-      console.debug(res);
-      this.utilsService.dismissAllModal();
-      location.reload();
-    });
-    console.debug(body);
+    if(!this.pet) {
+      this.petsService.createPet(body).subscribe(res => {
+        this.utilsService.dismissAllModal();
+        location.reload();
+      });
+    } else {
+      this.petsService.updatePet(this.pet._id, body).subscribe(res => {
+        this.utilsService.dismissAllModal();
+        location.reload();
+      });
+    }
   }
 
   getSpecies() {

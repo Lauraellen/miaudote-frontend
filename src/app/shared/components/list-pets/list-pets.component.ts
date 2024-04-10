@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { take } from 'rxjs';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Subscription, take } from 'rxjs';
 import { PetService } from 'src/app/services/pet/pet.service';
 declare var $: any;
 import 'slick-carousel';
@@ -14,7 +14,9 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   templateUrl: './list-pets.component.html',
   styleUrls: ['./list-pets.component.css']
 })
-export class ListPetsComponent implements OnInit {
+export class ListPetsComponent implements OnInit, OnDestroy {
+  
+  subscription: Subscription = new Subscription();
 
   @ViewChild('editPet') editPet!: TemplateRef<any>;
   @ViewChild('deletePet') deletePet!: TemplateRef<any>;
@@ -30,6 +32,7 @@ export class ListPetsComponent implements OnInit {
   petToEdit: any;
   pet!: any;
   personId: string = '';
+  byFilter: boolean = false;
 
   constructor(
     private elementRef: ElementRef,
@@ -41,6 +44,10 @@ export class ListPetsComponent implements OnInit {
     private authService: AuthService
 
   ) { }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.personId = this.authService.getUserId();
@@ -55,6 +62,22 @@ export class ListPetsComponent implements OnInit {
       this.getPets();
     }
 
+    this.subscription.add(
+      this.petService.getListPetsByFilterBehavior().subscribe({
+        next: (res: any) => {
+        console.debug(res)
+        this.loadingPets = true;
+          if(res) {
+            this.listPets = res;
+            this.byFilter = true;
+            this.loadingPets = false;
+            this.cdr.detectChanges();
+            this.initializeCarousels()
+
+          }
+        }
+      })
+    )
   }
 
   initializeCarousels() {
@@ -85,7 +108,6 @@ export class ListPetsComponent implements OnInit {
           this.listPets = response;
           this.loadingPets = false;
 
-          console.debug('listPets => ', this.listPets)
           this.cdr.detectChanges();
           this.initializeCarousels()
 
@@ -101,11 +123,16 @@ export class ListPetsComponent implements OnInit {
         next: response => {
           this.listPets = response;
           this.loadingPets = false;
-
+          this.byFilter = false;
           this.cdr.detectChanges();
           this.initializeCarousels()
 
-        }
+        },
+        error: () => {
+          this.listPets = [];
+          this.loadingPets = false;
+          this.byFilter = false;
+        },
       })
   }
 
@@ -116,18 +143,23 @@ export class ListPetsComponent implements OnInit {
         next: response => {
           this.listPets = response;
           this.loadingPets = false;
-          console.debug(this.listPets)
+          this.byFilter = false;
           this.cdr.detectChanges();
           this.initializeCarousels()
 
-        }
+        },
+        error: () => {
+          this.listPets = [];
+          this.loadingPets = false;
+          this.byFilter = false;
+        },
       })
+      
   }
 
   getPhotos(fileName: string) {
     this.uploadService.getAllFiles(fileName).snapshotChanges().pipe(
     ).subscribe(res => {
-      console.debug(res)
     })
   }
 
@@ -155,14 +187,11 @@ export class ListPetsComponent implements OnInit {
     this.userService.addFavoritePet(body).pipe(take(1))
     .subscribe({
       next: response => {
-        console.debug(response)
       }
     })
-    console.debug(pet)
   }
 
   removePet(pet: any) {
-    console.debug(pet)
     this.petService.deletePet(pet._id).pipe(take(1))
     .subscribe({
       next: response => {
@@ -182,9 +211,7 @@ export class ListPetsComponent implements OnInit {
     this.userService.removeFavoritePet(body).pipe(take(1))
     .subscribe({
       next: response => {
-        console.debug(response)
       }
     })
-    console.debug(pet)
   }
 }

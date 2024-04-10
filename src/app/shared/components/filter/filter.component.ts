@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { IbgeService } from 'src/app/services/ibge/ibge.service';
 import { PetService } from 'src/app/services/pet/pet.service';
 import { SpecieService } from 'src/app/services/specie/specie.service';
@@ -31,17 +31,6 @@ export class FilterComponent implements OnInit {
 
   cities: any = [];
 
-  breeds: any[] = [
-    {
-      Id: 1,
-      Name: 'Golden Retriver'
-    },
-    {
-      Id: 2,
-      Name: 'Shitzu'
-    }
-  ];
-
 
   constructor(
     private fb: FormBuilder,
@@ -55,8 +44,8 @@ export class FilterComponent implements OnInit {
       specie: [null],
       gender: [null],
       age: [null],
-      state: [null],
-      city: [null],
+      idState: [null],
+      idCity: [null],
       breed: [null]
     });
 
@@ -81,17 +70,10 @@ export class FilterComponent implements OnInit {
     })
   }
 
-  onSpeciesSelect(_event: any) {
-
-  }
-
-  onGenderSelect(_event: any) {
-
-  }
 
   onStateSelect(event: any) {
-    const state = this.formFilter.get('state')?.value;
-
+    this.formFilter.get('idCity')?.setValue(null);
+    const state = this.states.find((e: any) => e.id == this.formFilter.get('idState')?.value);
     this.ibgeService.getCitiesByStated(state.sigla).pipe(take(1)).subscribe({
       next: (response) => {
         this.cities = response;
@@ -99,13 +81,6 @@ export class FilterComponent implements OnInit {
     })
   }
 
-  onCitySelect(_event: any) {
-
-  }
-
-  onBreedSelect(_event: any) {
-
-  }
 
   getStates() {
     this.ibgeService.getStates().pipe(take(1)).subscribe({
@@ -117,15 +92,20 @@ export class FilterComponent implements OnInit {
 
   clearSelection(control: string): void {
 
-    const speciesControl = this.formFilter.get(control);
-    if (speciesControl) {
-      speciesControl.setValue(0);
+    const controls = this.formFilter.get(control);
+    if (controls) {
+      controls.setValue(null);
     }
 
-    if(control == 'state') {
-      this.formFilter.get('city')?.setValue(0);
+    if(control == 'idState') {
+      this.formFilter.get('idCity')?.setValue(null);
       this.cities = [];
     }
+  }
+
+  cleanFilters() {
+    this.formFilter.reset();
+    this.search();
   }
 
   search() {
@@ -133,7 +113,7 @@ export class FilterComponent implements OnInit {
 
     this.petsService.getPetsByFilter(body).pipe(take(1)).subscribe({
       next: (response) => {
-        this.states = response
+        this.petsService.setListPetsByFilterBehavior(response)
       }
     })
   }

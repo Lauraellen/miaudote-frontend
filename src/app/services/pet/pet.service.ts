@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class PetService {
+
+  listPetsByFilter: BehaviorSubject<any> = new BehaviorSubject(null)
+
   constructor(private http: HttpClient) { }
 
   createPet(body: any) {
@@ -22,7 +26,7 @@ export class PetService {
   }
 
   updatePet(id: String, body: any) {    
-    return this.http.put(`${environment.url}/pet${id}`, body);
+    return this.http.put(`${environment.url}/pet/${id}`, body);
   }
 
   deletePet(id: String) {
@@ -51,5 +55,13 @@ export class PetService {
 
   getAgePets() {
     return this.http.get(`${environment.url}/agePets`)
+  }
+
+  setListPetsByFilterBehavior(res: any) {
+    this.listPetsByFilter.next(res);
+  }
+
+  getListPetsByFilterBehavior() {
+    return this.listPetsByFilter.asObservable();
   }
 }

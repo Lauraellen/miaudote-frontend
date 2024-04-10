@@ -86,7 +86,6 @@ export class ProfileComponent implements OnInit {
           this.loadingPerson = false;
           this.person = response;
           this.setPerson();
-          console.debug(response)
         }
       })
   }

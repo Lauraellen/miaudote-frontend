@@ -18,12 +18,12 @@ export class LoaderInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this.loadingService.show();
+    // Exibir o loader ao iniciar a requisição
+    this.loadingService.showLoader();
 
     return next.handle(req).pipe(
-      finalize(() => {
-        this.loadingService.hide();
-      })
+      // Ocultar o loader quando a resposta for recebida
+      finalize(() => this.loadingService.hideLoader())
     );
   }
 }

@@ -114,7 +114,10 @@ export class FilterComponent implements OnInit {
     this.petsService.getPetsByFilter(body).pipe(take(1)).subscribe({
       next: (response) => {
         this.petsService.setListPetsByFilterBehavior(response)
-      }
+      },
+      error: () => {
+        this.petsService.setListPetsByFilterBehavior([])
+      },
     })
   }
 }

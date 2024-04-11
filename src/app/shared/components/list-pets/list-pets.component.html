@@ -1,3 +1,5 @@
+<app-loader></app-loader>
+
 <div class="container" style="margin-bottom: 15px;" *ngIf="listPets?.length > 0">
     <div class="row">
         <div class="mt-2" *ngIf="byFilter">
@@ -44,10 +46,16 @@
     </div>
 </div>
 
-<ng-container *ngIf="listPets?.length == 0 && getById">
-    <div class="col-md-12 d-flex justify-content-center mt-5">
+
+<ng-container *ngIf="listPets?.length == 0">
+    <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="getById">
         Não há nenhum aumiguinho {{showButtonToProfile ? 'cadastrado' : 'salvo'}}!
     </div>
+
+    <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="byFilter">
+        Não encontramos nenhum pet com os filtros selecionados.
+    </div>
+
 </ng-container>
 
 <ng-template #editPet let-modal>

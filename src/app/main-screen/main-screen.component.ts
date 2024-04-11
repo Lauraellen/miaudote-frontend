@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 declare var $: any;
 import 'slick-carousel';
 import { ActivatedRoute } from '@angular/router';
+import { LoaderService } from '../services/loader/loader.service';
 @Component({
   selector: 'app-main-screen',
   templateUrl: './main-screen.component.html',
@@ -16,7 +17,8 @@ export class MainScreenComponent implements OnInit {
   isFavorite: boolean = false;
 
   constructor(
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public loaderService: LoaderService
   ) { }
 
   ngOnInit(): void {

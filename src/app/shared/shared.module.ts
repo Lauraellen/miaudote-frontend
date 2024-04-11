@@ -11,7 +11,6 @@ import { ModalComponent } from './components/modal/modal.component';
 import { FavoritePetsComponent } from './components/favorite-pets/favorite-pets.component';
 
 
-
 @NgModule({
   declarations: [
     SidebarComponent,
@@ -20,7 +19,7 @@ import { FavoritePetsComponent } from './components/favorite-pets/favorite-pets.
     ListPetsComponent,
     NewPetComponent,
     ModalComponent,
-    FavoritePetsComponent
+    FavoritePetsComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +33,7 @@ import { FavoritePetsComponent } from './components/favorite-pets/favorite-pets.
     ListPetsComponent,
     NewPetComponent,
     ModalComponent,
-    FavoritePetsComponent
+    FavoritePetsComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

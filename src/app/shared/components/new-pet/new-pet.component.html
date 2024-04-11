@@ -83,6 +83,26 @@
 
         </div>
 
+        <div *ngIf="filesUploaded.length > 0 || currentFileUploads.length > 0 " class="row mt-3">
+          <div class="col-12">
+            <h5>Arquivos Carregados</h5>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let file of filesUploaded">
+                {{ file.alt }}
+                <button type="button" class="btn btn-sm btn-danger float-end" (click)="removeFile(file)">Remover</button>
+              </li>
+
+              <ng-container *ngIf="allFilesUploded">
+                <li class="list-group-item" *ngFor="let file of currentFileUploads">
+                  {{ file.name }}
+                  <button type="button" class="btn btn-sm btn-danger float-end" (click)="removeFile(file)">Remover</button>
+                </li>
+              </ng-container>
+              
+            </ul>
+          </div>
+        </div>
+
         <div class="row mt-3">
           <div class="col-8">
             <label class="custom-file-upload">

@@ -20,7 +20,7 @@ export class NewPetComponent implements OnInit {
   selectedFiles?: FileList;
   // currentFileUpload?: FileUpload;
   currentFileUploads: FileUpload[] = [];
-
+  allFilesUploded: boolean = false;
   percentage: number | undefined = 0;
   filesUploaded: any[] = [];
 
@@ -73,6 +73,7 @@ export class NewPetComponent implements OnInit {
     this.getAgePets();
 
     if (this.pet) {
+      this.filesUploaded = this.pet.photos
       this.setData();
     }
   }
@@ -90,8 +91,16 @@ export class NewPetComponent implements OnInit {
     const files = [];
 
     // Adicione todos os arquivos à lista de files
-    for (const fileUpload of this.currentFileUploads) {
-      files.push({ url: fileUpload.url, alt: fileUpload.name });
+    if(this.currentFileUploads.length) {
+      for (const fileUpload of this.currentFileUploads) {
+        files.push({ url: fileUpload.url, alt: fileUpload.name });
+      }
+    }
+
+    if(this.filesUploaded.length) {
+      for (const fileUpload of this.filesUploaded) {
+        files.push({ url: fileUpload.url, alt: fileUpload.alt});
+      }
     }
 
     const body = this.formPets.getRawValue();
@@ -99,7 +108,7 @@ export class NewPetComponent implements OnInit {
     const specie = body.specie;
 
     body.user = {_id: userId};
-    body.photos = this.pet.photos ?? files ;
+    body.photos = files ;
     body.specie = {_id: body.specie};
     body.age = {_id: body.age}
 
@@ -151,6 +160,10 @@ export class NewPetComponent implements OnInit {
         this.uploadService.pushFileToStorage(fileUpload).subscribe(
           (percentage: number | undefined) => {
             this.percentage = percentage;
+
+            if(this.percentage == 100) {
+              this.allFilesUploded = true;
+            }
           }
         );
       }
@@ -158,6 +171,10 @@ export class NewPetComponent implements OnInit {
       // Limpa a lista de arquivos selecionados
       this.selectedFiles = undefined;
     }
+  }
+
+  removeFile(file: any): void {
+    this.filesUploaded = this.filesUploaded.filter((e: any) => e._id != file._id)
   }
 
   onStateSelect(event: any) {

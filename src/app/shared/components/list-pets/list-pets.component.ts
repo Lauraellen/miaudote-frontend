@@ -65,7 +65,6 @@ export class ListPetsComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.petService.getListPetsByFilterBehavior().subscribe({
         next: (res: any) => {
-        console.debug(res)
         this.loadingPets = true;
           if(res) {
             this.listPets = res;
@@ -164,6 +163,7 @@ export class ListPetsComponent implements OnInit, OnDestroy {
   }
 
   openModalToEdit(pet: any) {
+    console.debug('pet => ', pet)
     this.petToEdit = pet;
     this.utilService.openModal(this.editPet, {centered: true, size: 'lg'})
   }

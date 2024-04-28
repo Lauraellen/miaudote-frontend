@@ -105,14 +105,14 @@ export class FilterComponent implements OnInit {
 
   cleanFilters() {
     this.formFilter.reset();
-    this.search();
+    this.search(true);
   }
 
-  search() {
+  search(isClean = false) {
     const body = this.formFilter.getRawValue();
 
     this.petsService.getPetsByFilter(body).pipe(take(1)).subscribe({
-      next: (response) => {
+      next: (response) => {        
         this.petsService.setListPetsByFilterBehavior(response)
       },
       error: () => {

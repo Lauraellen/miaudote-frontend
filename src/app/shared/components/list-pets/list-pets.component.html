@@ -13,18 +13,18 @@
                             <div class="image-container">
                                 <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
                                 <div class="carousel-buttons" *ngIf="showButtonsToMenu">
-                                    <button class="btn btn-pink adopt-btn">Adotar amiguinho agora!</button>
-                                    <button class="btn btn-white fav-btn" (click)="addFavoritePet(pet)">Possível aumiguinho</button>
+                                    <button class="btn-primary size" (click)="adoptPet(pet)">Adotar amiguinho agora!</button>
+                                    <button class="btn-secondary size" (click)="addFavoritePet(pet)">Possível aumiguinho</button>
                                 </div>
 
                                 <div class="carousel-buttons" *ngIf="showButtonToProfile">
-                                    <button class="btn btn-pink adopt-btn" (click)="openModalToEdit(pet)">Editar</button>
-                                    <button class="btn btn-pink adopt-btn" (click)="openModalToConfirm(pet)">Excluir</button>
+                                    <button class="btn-primary size" (click)="openModalToEdit(pet)">Editar</button>
+                                    <button class="btn-warning-secondary size" (click)="openModalToConfirm(pet)">Excluir</button>
                                 </div>
 
                                 
                                 <div class="carousel-buttons" *ngIf="showButtonToFavorite">
-                                    <button class="btn btn-pink cancel-btn" (click)="removeFromFavorite(pet)">Remover</button>
+                                    <button class="btn-warning-primary size" (click)="removeFromFavorite(pet)">Remover</button>
                                 </div>
                             </div>
                         </div>
@@ -74,8 +74,8 @@
             <h5>Deseja confirmar a exclusão do pet {{pet.name}} ? </h5>
 
             <div class="d-flex justify-content-end mt-3">
-                <button class="btn btn-pink cancel-btn" (click)="closeModal(modal)">Cancelar</button>
-                <button class="btn btn-pink confirm-btn" (click)="removePet(pet)">Confirmar</button>
+                <button class="btn-cancel" (click)="closeModal(modal)">Cancelar</button>
+                <button class="btn-warning-primary" (click)="removePet(pet)">Confirmar</button>
 
             </div>
         </div>

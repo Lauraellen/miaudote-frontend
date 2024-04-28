@@ -15,3 +15,69 @@
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+.btn-primary {
+    margin: 5px 0;
+    border-radius: 10px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+    background-color: #367694;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-secondary {
+    margin: 5px 0;
+    border-radius: 8px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    border: 2px solid #367694;
+    outline: none;
+    transition: background-color 0.3s;
+    background-color: white;
+    color: #367694;
+    font-weight: bold;
+}
+
+.btn-cancel {
+    margin: 5px 0;
+    border-radius: 10px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    background-color: #cfc7cc;
+    color: black;
+    margin-right: 5px;
+}
+
+.btn-warning-primary {
+    margin: 5px 0;
+    border-radius: 8px; 
+    padding: 8px 16px;
+    cursor: pointer; 
+    outline: none;
+    transition: background-color 0.3s;
+    background-color: #F34747;
+    border-color: #F34747;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-warning-secondary {
+    margin: 5px 0;
+    border-radius: 8px; 
+    border-color: #F34747;
+    padding: 8px 16px;
+    cursor: pointer; 
+    outline: none;
+    transition: background-color 0.3s;
+    background-color: white;
+    color: #F34747;
+    font-weight: bold;
+}

@@ -74,6 +74,11 @@ export class ListPetsComponent implements OnInit, OnDestroy {
             this.initializeCarousels()
 
           }
+
+          if(res.length == 0) {
+            this.byFilter = false;
+          }
+          
         }
       })
     )
@@ -90,13 +95,21 @@ export class ListPetsComponent implements OnInit, OnDestroy {
           slidesToShow: 1,
           slidesToScroll: 1,
           dots: true,
-          arrows: false,
+          arrows: true,
           autoplay: false,
-          infinite: true,
-          autoplaySpeed: 5000
+          infinite: false,
+          autoplaySpeed: 5000,
         });
       });
     });
+  }
+
+  adoptPet(pet: any) {
+    this.userService.getUser(pet.user).subscribe((res: any) => {
+      const phoneNumber = '+55' + res.celphone;
+      const linkWhatsApp = 'https://wa.me/' + phoneNumber;
+      window.open(linkWhatsApp);
+    })
   }
 
   getPets() {

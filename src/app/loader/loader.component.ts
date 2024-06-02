@@ -13,7 +13,6 @@ export class LoaderComponent {
   loader = null
   constructor(private loaderService: LoaderService, private spinner: NgxSpinnerService) {
     const v = this.loaderService.loading$.subscribe((v) => {
-      console.debug(v)
       this.loading = v;
       if (this.loading) {
         this.spinner.show()
@@ -24,6 +23,5 @@ export class LoaderComponent {
   }
 
   ngOnInit(): void {
-    console.debug('laoder')
   }
 }

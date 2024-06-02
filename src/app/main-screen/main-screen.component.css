@@ -1,8 +1,12 @@
 .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2%;
+    background-color: #AACBC4;
+    color: white;
+
+}
+
+i {
+    font-size: 24px;
+    margin-right: 2.5rem; 
 }
 .container-fluid {
     display: grid;

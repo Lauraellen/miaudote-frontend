@@ -3,71 +3,74 @@
 <div class="container-fluid">
     <div class="row">
         <form [formGroup]="formFilter">
-            <div class="form-group">
-                <label for="specie" class="ng-select-label">Espécie do animal</label>
-                <div class="custom-select-container">
-                    <select class="form-control custom-select" id="specie" formControlName="specie">
-                        <option [ngValue]="null" selected>Todos</option>
-                        <option *ngFor="let specie of species" [value]="specie._id">{{ specie.type }}</option>
-                    </select>
-                    <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
-                    <!-- Ícone "x" para limpar a seleção -->
-                    <div class="clear-selection-icon" *ngIf="formFilter.get('specie')?.value" (click)="clearSelection('specie')">x</div>
+            <div class="row">
+                <div class="form-group" [ngClass]="isFromModal ? 'col-md-4 mt-3' : 'col-md-12'">
+                    <label for="specie" class="ng-select-label">Espécie do animal</label>
+                    <div class="custom-select-container">
+                        <select class="form-control custom-select" id="specie" formControlName="specie">
+                            <option [ngValue]="null" selected>Todos</option>
+                            <option *ngFor="let specie of species" [value]="specie._id">{{ specie.type }}</option>
+                        </select>
+                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+                        <!-- Ícone "x" para limpar a seleção -->
+                        <div class="clear-selection-icon" *ngIf="formFilter.get('specie')?.value" (click)="clearSelection('specie')">x</div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group mt-3">
-                <label for="gender" class="ng-select-label">Sexo</label>
-                <div class="custom-select-container">
-                    <select class="form-control custom-select" id="gender" formControlName="gender">
-                        <option [ngValue]="null" selected>Todos</option>
-                        <option *ngFor="let gender of genders" [value]="gender.Id">{{ gender.Name }}</option>
-                    </select>
-                    <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
-                    <!-- Ícone "x" para limpar a seleção -->
-                    <div class="clear-selection-icon" *ngIf="formFilter.get('gender')?.value" (click)="clearSelection('gender')">x</div>
+                <div class="form-group mt-3" [ngClass]="isFromModal ? 'col-md-4' : 'col-md-12'">
+                    <label for="gender" class="ng-select-label">Sexo</label>
+                    <div class="custom-select-container">
+                        <select class="form-control custom-select" id="gender" formControlName="gender">
+                            <option [ngValue]="null" selected>Todos</option>
+                            <option *ngFor="let gender of genders" [value]="gender.Id">{{ gender.Name }}</option>
+                        </select>
+                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+                        <!-- Ícone "x" para limpar a seleção -->
+                        <div class="clear-selection-icon" *ngIf="formFilter.get('gender')?.value" (click)="clearSelection('gender')">x</div>
+                    </div>
+                </div>
+    
+                <div class="form-group mt-3" [ngClass]="isFromModal ? 'col-md-4' : 'col-md-12'">
+                    <label for="age" class="ng-select-label">Idade</label>
+                    <div class="custom-select-container">
+                        <select class="form-control custom-select" id="age" formControlName="age">
+                            <option [ngValue]="null" selected>Todos</option> <!-- Opção para seleção vazia -->
+                            <option *ngFor="let age of agePets" [ngValue]="age">{{ age.age }}</option> <!-- Usando ngValue para passar o objeto completo -->
+                        </select>
+                        
+                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+                        <!-- Ícone "x" para limpar a seleção -->
+                        <div class="clear-selection-icon" *ngIf="formFilter.get('age')?.value" (click)="clearSelection('age')">x</div>
+                    </div>
+                </div>
+    
+                <div class="form-group mt-3" [ngClass]="isFromModal ? 'col-md-4' : 'col-md-12'">
+                    <label for="idState" class="ng-select-label">Estado</label>
+                    <div class="custom-select-container">
+                        <select class="form-control custom-select" id="idState" formControlName="idState" (change)="onStateSelect($event)">
+                            <option [ngValue]="null" selected>Todos</option> <!-- Opção para seleção vazia -->
+                            <option *ngFor="let state of states" [ngValue]="state.id">{{ state.nome }}</option> <!-- Usando ngValue para passar o objeto completo -->
+                        </select>
+                        
+                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+                        <!-- Ícone "x" para limpar a seleção -->
+                        <div class="clear-selection-icon" *ngIf="formFilter.get('state')?.value" (click)="clearSelection('state')">x</div>
+                    </div>
+                </div>
+    
+                <div class="form-group mt-3 mb-3" [ngClass]="isFromModal ? 'col-md-4' : 'col-md-12'">
+                    <label for="idCity" class="ng-select-label">Cidade</label>
+                    <div class="custom-select-container">
+                        <select class="form-control custom-select" id="idCity"  formControlName="idCity">
+                            <option [ngValue]="null" selected>Todos</option>
+                            <option *ngFor="let city of cities" [value]="city.id">{{ city.nome }}</option>
+                        </select>
+                        <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
+                        <!-- Ícone "x" para limpar a seleção -->
+                        <div class="clear-selection-icon" *ngIf="formFilter.get('city')?.value" (click)="clearSelection('city')">x</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="form-group mt-3">
-                <label for="age" class="ng-select-label">Idade</label>
-                <div class="custom-select-container">
-                    <select class="form-control custom-select" id="age" formControlName="age">
-                        <option [ngValue]="null" selected>Todos</option> <!-- Opção para seleção vazia -->
-                        <option *ngFor="let age of agePets" [ngValue]="age">{{ age.age }}</option> <!-- Usando ngValue para passar o objeto completo -->
-                    </select>
-                    
-                    <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
-                    <!-- Ícone "x" para limpar a seleção -->
-                    <div class="clear-selection-icon" *ngIf="formFilter.get('age')?.value" (click)="clearSelection('age')">x</div>
-                </div>
-            </div>
-
-            <div class="form-group mt-3">
-                <label for="idState" class="ng-select-label">Estado</label>
-                <div class="custom-select-container">
-                    <select class="form-control custom-select" id="idState" formControlName="idState" (change)="onStateSelect($event)">
-                        <option [ngValue]="null" selected>Todos</option> <!-- Opção para seleção vazia -->
-                        <option *ngFor="let state of states" [ngValue]="state.id">{{ state.nome }}</option> <!-- Usando ngValue para passar o objeto completo -->
-                    </select>
-                    
-                    <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
-                    <!-- Ícone "x" para limpar a seleção -->
-                    <div class="clear-selection-icon" *ngIf="formFilter.get('state')?.value" (click)="clearSelection('state')">x</div>
-                </div>
-            </div>
-
-            <div class="form-group mt-3 mb-3">
-                <label for="idCity" class="ng-select-label">Cidade</label>
-                <div class="custom-select-container">
-                    <select class="form-control custom-select" id="idCity"  formControlName="idCity">
-                        <option [ngValue]="null" selected>Todos</option>
-                        <option *ngFor="let city of cities" [value]="city.id">{{ city.nome }}</option>
-                    </select>
-                    <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
-                    <!-- Ícone "x" para limpar a seleção -->
-                    <div class="clear-selection-icon" *ngIf="formFilter.get('city')?.value" (click)="clearSelection('city')">x</div>
-                </div>
-            </div>
 
             <!-- <div class="form-group mt-3">
                 <label for="breed" class="ng-select-label">Raça</label>
@@ -82,9 +85,13 @@
             </div> -->
         </form>
 
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between" *ngIf="!isFromModal">
             <button class="btn-warning-secondary" (click)="cleanFilters()"> Limpar filtros </button>
             <button class="btn btn-primary" (click)="search()"> Pesquisar </button>
+        </div>
+
+        <div class="d-flex justify-content-end" *ngIf="isFromModal">
+            <button class="btn btn-primary" (click)="savePetsInterest()"> Salvar </button>
         </div>
     </div>
 </div>

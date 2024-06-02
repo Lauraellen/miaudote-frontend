@@ -75,7 +75,7 @@ export class ListPetsComponent implements OnInit, OnDestroy {
 
           }
 
-          if(res.length == 0) {
+          if(res?.length == 0) {
             this.byFilter = false;
           }
           

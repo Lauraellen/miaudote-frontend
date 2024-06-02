@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, take } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { IbgeService } from 'src/app/services/ibge/ibge.service';
 import { PetService } from 'src/app/services/pet/pet.service';
 import { SpecieService } from 'src/app/services/specie/specie.service';
+import { UserService } from 'src/app/services/user/user.sevice';
 
 @Component({
   selector: 'app-filter',
@@ -11,6 +13,8 @@ import { SpecieService } from 'src/app/services/specie/specie.service';
   styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements OnInit {
+
+  @Input() isFromModal: boolean = false;
 
   formFilter!: FormGroup;
   species: any[] = [];
@@ -36,7 +40,10 @@ export class FilterComponent implements OnInit {
     private fb: FormBuilder,
     private ibgeService: IbgeService,
     private specieService: SpecieService,
-    private petsService: PetService
+    private petsService: PetService,
+    private authService: AuthService,
+    private userService: UserService
+
   ) { }
 
   ngOnInit(): void {
@@ -117,6 +124,22 @@ export class FilterComponent implements OnInit {
       },
       error: () => {
         this.petsService.setListPetsByFilterBehavior([])
+      },
+    })
+  }
+
+  savePetsInterest() {
+    const body = {
+      petData: this.formFilter.getRawValue(),
+      idUser: this.authService.getUserId()
+    }
+    
+    this.userService.addPetOfInterest(body).pipe(take(1)).subscribe({
+      next: (response) => {        
+        // this.petsService.setListPetsByFilterBehavior(response)
+      },
+      error: () => {
+        // this.petsService.setListPetsByFilterBehavior([])
       },
     })
   }

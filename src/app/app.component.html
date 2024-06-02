@@ -1,2 +1,19 @@
 <app-loader></app-loader>
 <router-outlet></router-outlet>
+
+<ng-container *ngIf="showButton">
+    <button class="floating-btn" (click)="openModal()">Criar alerta de novos pets</button>
+</ng-container>
+
+<ng-template #subscribePets let-modal>
+    <app-modal [title]="'Registre suas preferências'" (buttonClicked)="closeModal(modal)" [hasButtons]="false"
+        [closeButtonHeader]="true">
+        <div body>
+            <div class="container-fluid mb-2">
+                <h6>Preencha suas preferências e receba notificações quando o pet que você procura estiver disponível para adoção!</h6>
+            </div>
+
+            <app-filter [isFromModal]="true"></app-filter>
+        </div>
+    </app-modal>
+</ng-template>

@@ -9,7 +9,13 @@ import { ListPetsComponent } from './components/list-pets/list-pets.component';
 import { NewPetComponent } from './components/new-pet/new-pet.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { FavoritePetsComponent } from './components/favorite-pets/favorite-pets.component';
+import { SubscribesComponent } from './components/subscribes/subscribes.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 
+export function playerFactory() {
+  return player;
+}
 
 @NgModule({
   declarations: [
@@ -20,11 +26,14 @@ import { FavoritePetsComponent } from './components/favorite-pets/favorite-pets.
     NewPetComponent,
     ModalComponent,
     FavoritePetsComponent,
+    SubscribesComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    LottieModule.forRoot({ player: playerFactory }),
+
   ],
   exports: [
     SidebarComponent,
@@ -34,6 +43,7 @@ import { FavoritePetsComponent } from './components/favorite-pets/favorite-pets.
     NewPetComponent,
     ModalComponent,
     FavoritePetsComponent,
+    SubscribesComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

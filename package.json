@@ -26,6 +26,8 @@
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.11.3",
     "firebase": "^9.23.0",
+    "lottie-web": "^5.12.2",
+    "ngx-lottie": "^10.0.0",
     "ngx-mask": "^16.4.2",
     "ngx-spinner": "^16.0.2",
     "rxjs": "~7.8.0",

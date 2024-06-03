@@ -19,16 +19,20 @@
         </div>
     </div>
     <div class="conteudo">
-        <ng-container *ngIf="!isProfile && !isFavorite">
+        <ng-container *ngIf="!isProfile && !isFavorite && !isSubscribes">
             <app-list-pets [showButtonToProfile]="false" [showButtonsToMenu]="true"></app-list-pets>
         </ng-container>
 
-        <ng-container *ngIf="isProfile && !isFavorite">
+        <ng-container *ngIf="isProfile && !isFavorite && !isSubscribes">
             <app-profile></app-profile>
         </ng-container>
 
-        <ng-container *ngIf="!isProfile && isFavorite">
+        <ng-container *ngIf="!isProfile && !isSubscribes && isFavorite">
             <app-favorite-pets></app-favorite-pets>
+        </ng-container>
+
+        <ng-container *ngIf="!isProfile && isSubscribes && !isFavorite">
+            <app-subscribes></app-subscribes>
         </ng-container>
     </div>
 </div>

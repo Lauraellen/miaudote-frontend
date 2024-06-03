@@ -24,6 +24,11 @@ const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: "inscricoes",
+    component: MainScreenComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: "",
     redirectTo: "adote",
     pathMatch: "full"

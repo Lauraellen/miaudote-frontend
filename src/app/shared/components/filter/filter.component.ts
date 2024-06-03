@@ -6,6 +6,7 @@ import { IbgeService } from 'src/app/services/ibge/ibge.service';
 import { PetService } from 'src/app/services/pet/pet.service';
 import { SpecieService } from 'src/app/services/specie/specie.service';
 import { UserService } from 'src/app/services/user/user.sevice';
+import { UtilsService } from 'src/app/services/utils/utils.service';
 
 @Component({
   selector: 'app-filter',
@@ -42,7 +43,8 @@ export class FilterComponent implements OnInit {
     private specieService: SpecieService,
     private petsService: PetService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private utilsService: UtilsService
 
   ) { }
 
@@ -135,11 +137,10 @@ export class FilterComponent implements OnInit {
     }
     
     this.userService.addPetOfInterest(body).pipe(take(1)).subscribe({
-      next: (response) => {        
-        // this.petsService.setListPetsByFilterBehavior(response)
+      next: (response) => {
+        this.utilsService.dismissAllModal();
       },
       error: () => {
-        // this.petsService.setListPetsByFilterBehavior([])
       },
     })
   }

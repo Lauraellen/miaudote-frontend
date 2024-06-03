@@ -39,6 +39,14 @@ export class UserService {
 
   addPetOfInterest(body: any) {
     return this.http.post(`${environment.url}/addPetOfInterest`, body)
+  }
+
+  getPetOfInterestByUser(personId: string | undefined) {
+    return this.http.get(`${environment.url}/getPetOfInterestByUser/${personId}`)
+  }
+
+  removePetOfInterest(body: any) {
+    return this.http.post(`${environment.url}/removePetOfInterest`, body)
 
   }
 }

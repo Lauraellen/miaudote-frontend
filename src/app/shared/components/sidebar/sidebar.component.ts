@@ -18,7 +18,12 @@ export class SidebarComponent {
 
   ){}
   
-  navigateTo() {
+  navigateToSubscribes() {
+    this.isHomeSelected = false;
+    this.isNotificationsSelected = true;
+    this.isBookmarksSelected = false;
+    this.isProfileSelected = false;
+    this.router.navigate(['/inscricoes'], { queryParams: { isSubscribes: true }})
   }
 
   navigateToFavoritePets() {

@@ -15,6 +15,7 @@ export class MainScreenComponent implements OnInit {
 
   isProfile: boolean = false;
   isFavorite: boolean = false;
+  isSubscribes: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,6 +26,7 @@ export class MainScreenComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((res: any) => {
       this.isProfile = res.isProfile == "true" || res.isProfile == true ? true : false;
       this.isFavorite = res.isFavorite == "true" || res.isFavorite == true ? true : false;
+      this.isSubscribes = res.isSubscribes == "true" || res.isSubscribes == true ? true : false;
     });
   }
 

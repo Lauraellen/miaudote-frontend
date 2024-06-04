@@ -48,12 +48,16 @@
 
 
 <ng-container *ngIf="listPets?.length == 0">
-    <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="getById">
-        Não há nenhum aumiguinho {{showButtonToProfile ? 'cadastrado' : 'salvo'}}!
-    </div>
 
-    <div class="col-md-12 d-flex justify-content-center mt-5" *ngIf="byFilter">
-        Não encontramos nenhum pet com os filtros selecionados.
+    <div class="row mt-5">
+        <div class="col-md-12 d-flex justify-content-center">
+
+            <ng-lottie [styles]="styles" [options]="options" (animationCreated)="animationCreated($event)">
+            </ng-lottie>
+        </div>
+        <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="getById">Não há nenhum aumiguinho {{showButtonToProfile ? 'cadastrado' : 'salvo'}}!</h3>
+        <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="byFilter">Não encontramos nenhum pet com os filtros selecionados.</h3>
+
     </div>
 
 </ng-container>

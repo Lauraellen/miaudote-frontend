@@ -8,6 +8,8 @@ import { UtilsService } from 'src/app/services/utils/utils.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user/user.sevice';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationItem } from 'lottie-web';
 
 @Component({
   selector: 'app-list-pets',
@@ -17,6 +19,20 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class ListPetsComponent implements OnInit, OnDestroy {
   
   subscription: Subscription = new Subscription();
+
+  options: AnimationOptions = {
+    path: '../../assets/lotties/empty-list.json'
+  };
+
+  animationCreated(animationItem: AnimationItem): void {
+    animationItem.setSpeed(0.5)
+  };
+
+  styles: Partial<CSSStyleDeclaration> = {
+    maxWidth: '500px',
+    maxHeight: '200px',
+    margin: '0 auto'
+  };
 
   @ViewChild('editPet') editPet!: TemplateRef<any>;
   @ViewChild('deletePet') deletePet!: TemplateRef<any>;

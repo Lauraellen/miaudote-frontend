@@ -49,4 +49,9 @@ export class UserService {
     return this.http.post(`${environment.url}/removePetOfInterest`, body)
 
   }
+
+  getNotificationsByUser(userId: string) {
+    return this.http.get(`${environment.url}/getNotificationsByUser/${userId}`)
+
+  }
 }

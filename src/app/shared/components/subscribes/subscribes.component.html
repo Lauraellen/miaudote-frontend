@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="row mt-5" *ngIf="subscribes.length == 0">
+    <div class="row mt-5" *ngIf="subscribes?.length == 0">
         <div class="col-md-12 d-flex justify-content-center">
 
             <ng-lottie [styles]="styles" [options]="options" (animationCreated)="animationCreated($event)">
@@ -10,7 +10,7 @@
 
     </div>
 
-    <div *ngIf="subscribes.length > 0 && !loadingCities">
+    <div *ngIf="subscribes?.length > 0 && !loadingCities">
         <h4 class="col-md-12 mt-3">Seus alertas</h4>
         <span class="col-md-12">Seus alertas estão ativos e procurando novos pets para você.</span>
 

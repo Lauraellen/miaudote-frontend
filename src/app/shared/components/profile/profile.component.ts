@@ -119,6 +119,7 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     localStorage.clear();
+    this.authService.removeToken();
     location.reload();
   }
 

@@ -22,6 +22,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoaderComponent } from './loader/loader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { authGuard } from './core/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap'
     NgxSpinnerModule,
     BrowserAnimationsModule,
     NgbDropdownModule,
-    NgbTooltipModule
+    NgbTooltipModule,
+    AngularFireAuthModule
   ],
   exports: [
     SharedModule
@@ -52,6 +55,7 @@ import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap'
   providers: [
     LoaderService,
     provideEnvironmentNgxMask(),
+    AngularFireAuth,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,

@@ -39,20 +39,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authServive.login(this.loginForm.getRawValue()).pipe(take(1))
-    .subscribe({
-      next: (response: any) => {
-        this.authServive.setToken(response.token)
-        this.authServive.setUserId(response.userId)
-        this.router.navigate(['/adote'])
-        this.loginError = false;
-        
-      },
-      error: () => {
-        this.loginError = true;
-
-      },
-    })
+    this.authServive.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value, 
+    this.loginForm.getRawValue())
   }
 
   newAccount() {
@@ -63,6 +51,7 @@ export class LoginComponent implements OnInit {
     this.userService.createUser(body).pipe(take(1))
     .subscribe({
       next: (response: any) => {
+        this.authServive.newUser(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value)
         this.router.navigate(['/login'])
         this.loginError = false;
         
@@ -74,6 +63,31 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  public registerUser() {
+    const body =  {...this.loginForm.getRawValue()}
+    body.login = body.email;
+    body.idSavedPets = []
+
+    this.userService.createUser(body).pipe(take(1)).subscribe({
+      next: (response: any) => {
+        this.authServive.newUser(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value).then(() => {
+          this.router.navigate(['/login']);
+          this.loginError = false;
+        }).catch((error) => {
+          console.error('Erro ao criar usuário no Firebase:', error);
+          // Lidar com o erro de criação de usuário no Firebase, se necessário
+          this.router.navigate(['/login']);
+        });
+      },
+      error: (error) => {
+        console.error('Erro ao criar usuário no backend:', error);
+        // Lidar com o erro de criação de usuário no backend, se necessário
+        this.router.navigate(['/login']);
+      }
+    });
+  }
+
+  
   createAccount() {
     this.isNewAccount = true;
   }

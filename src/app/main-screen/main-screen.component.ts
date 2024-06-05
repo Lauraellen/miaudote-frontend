@@ -19,7 +19,8 @@ export class MainScreenComponent implements OnInit {
   isFavorite: boolean = false;
   isSubscribes: boolean = false;
   userId!: string;
-
+  notifications: any[] = [];
+  
   constructor(
     private activatedRoute: ActivatedRoute,
     public loaderService: LoaderService,
@@ -46,6 +47,7 @@ export class MainScreenComponent implements OnInit {
   getNotifications() {
     this.userService.getNotificationsByUser(this.userId).pipe(take(1)).subscribe({
       next: (response: any) => {
+        this.notifications = response;
         console.debug('response => ', response)
       }
     })

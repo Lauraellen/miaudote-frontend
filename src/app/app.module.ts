@@ -21,6 +21,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoaderComponent } from './loader/loader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     // AngularFirestoreModule,
     AngularFireStorageModule,
     NgxSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgbDropdownModule,
+    NgbTooltipModule
   ],
   exports: [
     SharedModule
@@ -54,7 +57,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       useClass: LoaderInterceptor,
       multi: true,
     },
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

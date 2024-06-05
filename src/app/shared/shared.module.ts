@@ -12,6 +12,8 @@ import { FavoritePetsComponent } from './components/favorite-pets/favorite-pets.
 import { SubscribesComponent } from './components/subscribes/subscribes.component';
 import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicPipe } from './pipes/dynamic.pipe';
 
 export function playerFactory() {
   return player;
@@ -27,13 +29,14 @@ export function playerFactory() {
     ModalComponent,
     FavoritePetsComponent,
     SubscribesComponent,
+    DynamicPipe,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     LottieModule.forRoot({ player: playerFactory }),
-
+    NgbDropdownModule,
   ],
   exports: [
     SidebarComponent,
@@ -43,7 +46,8 @@ export function playerFactory() {
     NewPetComponent,
     ModalComponent,
     FavoritePetsComponent,
-    SubscribesComponent
+    SubscribesComponent,
+    DynamicPipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

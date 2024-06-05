@@ -11,6 +11,7 @@ export class DynamicPipe implements PipeTransform {
   }
 
   formatDate(value: string): string {
+    console.debug(value)
     if (value == null || value == "null" || value == undefined || value == 'undefined') {
       return "";
     }

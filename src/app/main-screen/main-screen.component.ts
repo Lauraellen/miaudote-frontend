@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { LoaderService } from '../services/loader/loader.service';
 import { UserService } from '../services/user/user.sevice';
 import { AuthService } from '../services/auth/auth.service';
+import { format } from 'date-fns';
 @Component({
   selector: 'app-main-screen',
   templateUrl: './main-screen.component.html',
@@ -20,7 +21,7 @@ export class MainScreenComponent implements OnInit {
   isSubscribes: boolean = false;
   userId!: string;
   notifications: any[] = [];
-  
+
   constructor(
     private activatedRoute: ActivatedRoute,
     public loaderService: LoaderService,
@@ -48,6 +49,10 @@ export class MainScreenComponent implements OnInit {
     this.userService.getNotificationsByUser(this.userId).pipe(take(1)).subscribe({
       next: (response: any) => {
         this.notifications = response;
+
+        this.notifications.forEach(e => {
+          e.createDate = format(new Date(e?.notificationDate), 'dd/MM/yyyy');
+        })
         console.debug('response => ', response)
       }
     })

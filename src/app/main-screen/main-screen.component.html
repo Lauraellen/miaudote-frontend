@@ -5,7 +5,7 @@
         <div></div>
         <h2>MIAUDOTE</h2>
 
-        <div class="dropdown" ngbDropdown style="margin-right: 4.5rem;">
+        <div class="dropdown" ngbDropdown style="margin-right: 2.5rem;">
             <button type="button" [ngbTooltip]="'Notificações'" placement="bottom" tooltipClass="btn-custom-tooltip"
                 class="btn noti-icon" id="page-header-notifications-dropdown" ngbDropdownToggle>
                 <i class="fa-solid fa-bell"></i>
@@ -19,14 +19,15 @@
                         <ol class="notifications-list">
                             <li *ngFor="let notification of notifications, let i = index" class="notification-item">
                                 <div class="notification-container">
-        
                                     <div class="media-body">
-                                      <h5 class="mt-0 mb-1">{{ notification.message }}</h5>
+                                      <h6 class="mt-0 mb-1">{{ notification.message }}</h6>
                                       <div class="font-size-14 text-muted">
-                                        <p class="mb-1">cadastrado em {{ notification.notificationDate | dynamic: 'formatDate'}}</p>
+                                        <p class="mb-1">cadastrado em {{ notification.createDate}}</p>
                                       </div>
                                     </div>
                                   </div>
+                                  <hr style="width: 100%; margin-bottom: 0px;">
+
                             </li>
                         </ol>
                     </div>
@@ -53,7 +54,7 @@
             <span class="badge badge-pill" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
             </button>
         </div>
-        
+
     </div> -->
 </div>
 <div class="container-fluid">

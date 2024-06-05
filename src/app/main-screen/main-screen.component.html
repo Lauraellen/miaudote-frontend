@@ -18,7 +18,7 @@
                     <div class="notification-items">
                         <ol class="notifications-list">
                             <li *ngFor="let notification of notifications, let i = index" class="notification-item">
-                                <div class="notification-container">
+                                <div class="notification-container" (click)="filterPet(notification)">
                                     <div class="media-body">
                                       <h6 class="mt-0 mb-1">{{ notification.message }}</h6>
                                       <div class="font-size-14 text-muted">

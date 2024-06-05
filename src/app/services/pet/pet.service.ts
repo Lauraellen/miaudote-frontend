@@ -22,7 +22,7 @@ export class PetService {
   }
 
   getPet(id: String) {
-    return this.http.get(`${environment.url}/pet${id}`);
+    return this.http.get(`${environment.url}/pet/${id}`);
   }
 
   updatePet(id: String, body: any) {    

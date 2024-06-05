@@ -4,7 +4,7 @@ import { take } from 'rxjs/operators';
 
 declare var $: any;
 import 'slick-carousel';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService } from '../services/loader/loader.service';
 import { UserService } from '../services/user/user.sevice';
 import { AuthService } from '../services/auth/auth.service';
@@ -26,7 +26,9 @@ export class MainScreenComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     public loaderService: LoaderService,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private petService: PetService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -58,4 +60,32 @@ export class MainScreenComponent implements OnInit {
     })
   }
 
+  filterPet(notification: any) {
+    this.petService.getPet(notification.petId).pipe(take(1)).subscribe({
+      next: (response: any) => {
+        if(response) {
+          
+
+          const body = {
+            specie: response?.specie?._id,
+            gender: response?.gender,
+            age: response?.age?._id,
+            idState: response?.age?.idState,
+            idCity: response?.age?.idCity,
+            breed: response?.age?.breed,
+          };
+
+          this.petService.getPetsByFilter(body).pipe(take(1)).subscribe({
+            next: (response) => {        
+              this.petService.setListPetsByFilterBehavior(response);
+              this.router.navigate([`/adote`]);
+            },
+            error: () => {
+              this.petService.setListPetsByFilterBehavior([])
+            },
+          })
+        }
+      }
+    })
+  }
 }

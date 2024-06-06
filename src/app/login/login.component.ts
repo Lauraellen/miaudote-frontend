@@ -39,8 +39,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authServive.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value, 
-    this.loginForm.getRawValue())
+    this.authServive.login(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value, this.loginForm.getRawValue())
+      .then(() => {
+        console.log('Login bem-sucedido.');
+        this.loginError = false;
+      })
+      .catch(() => {
+        console.error('Erro ao fazer login.');
+        this.loginError = true;
+      });
   }
 
   newAccount() {
@@ -89,6 +96,7 @@ export class LoginComponent implements OnInit {
 
   
   createAccount() {
+    this.loginError = false;
     this.isNewAccount = true;
   }
 

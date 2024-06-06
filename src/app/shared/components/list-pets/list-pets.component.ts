@@ -122,8 +122,10 @@ export class ListPetsComponent implements OnInit, OnDestroy {
 
   adoptPet(pet: any) {
     this.userService.getUser(pet.user).subscribe((res: any) => {
+      const mensagem = encodeURIComponent('Olá ' + res?.name + ' tudo bem? Estive procurando um aumigo na plataforma Miaudote e me interessei pelo ' + pet.name + '! Como posso fazer para adotá-lo?');
+
       const phoneNumber = '+55' + res.celphone;
-      const linkWhatsApp = 'https://wa.me/' + phoneNumber;
+      const linkWhatsApp = `https://wa.me/${phoneNumber}?text=${mensagem}`;
       window.open(linkWhatsApp);
     })
   }

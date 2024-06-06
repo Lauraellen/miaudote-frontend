@@ -55,7 +55,7 @@
             <ng-lottie [styles]="styles" [options]="options" (animationCreated)="animationCreated($event)">
             </ng-lottie>
         </div>
-        <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="!getById && !byFilter">Não há nenhum pet cadastrado para adoção no momento! {{showButtonToProfile ? 'cadastrado' : 'salvo'}}!</h3>
+        <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="!getById && !byFilter">Não há nenhum pet cadastrado para adoção no momento!</h3>
 
         <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="getById">Não há nenhum aumiguinho {{showButtonToProfile ? 'cadastrado' : 'salvo'}}!</h3>
         <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="byFilter">Não encontramos nenhum pet com os filtros selecionados.</h3>

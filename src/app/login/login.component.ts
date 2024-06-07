@@ -60,10 +60,12 @@ export class LoginComponent implements OnInit {
       next: (response: any) => {
         this.authServive.newUser(this.loginForm.get('email')?.value, this.loginForm.get('password')?.value)
         this.router.navigate(['/login'])
+        this.isNewAccount = false;
         this.loginError = false;
         
       },
       error: () => {
+        this.isNewAccount = false;
         this.loginError = true;
 
       },

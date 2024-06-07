@@ -31,11 +31,11 @@
               placeholder="Digite sua senha">
           </div>
           <button type="submit" (click)="isNewAccount ? newAccount() : login()"
-            class="mt-3 btn btn-primary">{{isNewAccount ? 'Cadastrar' : 'Entrar'}}</button>
+            class="mt-3 btn btn-primary button-entrar">{{isNewAccount ? 'Cadastrar' : 'Entrar'}}</button>
           <div *ngIf="loginError" class="text-danger mt-3">E-mail ou senha incorretos. Por favor, tente novamente.</div>
 
           <button type="submit" (click)="isNewAccount ? goToLogin() : createAccount()"
-            class="mt-3 btn btn-primary">{{isNewAccount ? 'Já possuo conta' : 'Criar conta'}}</button>
+            class="mt-3 btn btn-primary nova-conta">{{isNewAccount ? 'Já possuo conta' : 'Criar conta'}}</button>
         </form>
       </div>
     </div>

@@ -28,7 +28,7 @@
                         <div class="clear-selection-icon" *ngIf="formFilter.get('gender')?.value" (click)="clearSelection('gender')">x</div>
                     </div>
                 </div>
-    
+
                 <div class="form-group mt-3" [ngClass]="isFromModal ? 'col-md-4' : 'col-md-12'">
                     <label for="age" class="ng-select-label">Idade</label>
                     <div class="custom-select-container">
@@ -36,13 +36,13 @@
                             <option [ngValue]="null" selected>Todos</option> <!-- Opção para seleção vazia -->
                             <option *ngFor="let age of agePets" [ngValue]="age">{{ age.age }}</option> <!-- Usando ngValue para passar o objeto completo -->
                         </select>
-                        
+
                         <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
                         <!-- Ícone "x" para limpar a seleção -->
                         <div class="clear-selection-icon" *ngIf="formFilter.get('age')?.value" (click)="clearSelection('age')">x</div>
                     </div>
                 </div>
-    
+
                 <div class="form-group mt-3" [ngClass]="isFromModal ? 'col-md-4' : 'col-md-12'">
                     <label for="idState" class="ng-select-label">Estado</label>
                     <div class="custom-select-container">
@@ -50,13 +50,13 @@
                             <option [ngValue]="null" selected>Todos</option> <!-- Opção para seleção vazia -->
                             <option *ngFor="let state of states" [ngValue]="state.id">{{ state.nome }}</option> <!-- Usando ngValue para passar o objeto completo -->
                         </select>
-                        
+
                         <div class="custom-select-arrow"></div> <!-- Seta personalizada -->
                         <!-- Ícone "x" para limpar a seleção -->
                         <div class="clear-selection-icon" *ngIf="formFilter.get('state')?.value" (click)="clearSelection('state')">x</div>
                     </div>
                 </div>
-    
+
                 <div class="form-group mt-3 mb-3" [ngClass]="isFromModal ? 'col-md-4' : 'col-md-12'">
                     <label for="idCity" class="ng-select-label">Cidade</label>
                     <div class="custom-select-container">
@@ -87,7 +87,7 @@
 
         <div class="d-flex justify-content-between" *ngIf="!isFromModal">
             <button class="btn-warning-secondary" (click)="cleanFilters()"> Limpar filtros </button>
-            <button class="btn btn-primary" (click)="search()"> Pesquisar </button>
+            <button class="btn btn-primary button-search" (click)="search()"> Pesquisar </button>
         </div>
 
         <div class="d-flex justify-content-end" *ngIf="isFromModal">

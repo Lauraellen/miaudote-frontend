@@ -14,6 +14,7 @@ import { LottieModule } from 'ngx-lottie';
 import player from 'lottie-web';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { DynamicPipe } from './pipes/dynamic.pipe';
+import { TextMaskModule } from 'ngx-textmask';
 
 export function playerFactory() {
   return player;
@@ -37,6 +38,8 @@ export function playerFactory() {
     FontAwesomeModule,
     LottieModule.forRoot({ player: playerFactory }),
     NgbDropdownModule,
+    TextMaskModule
+
   ],
   exports: [
     SidebarComponent,

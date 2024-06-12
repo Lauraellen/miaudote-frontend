@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
   formProfile!: FormGroup;
   titleModal: string = "";
   messageModal: string = "";
+  public mask = ['(', /[1-9]/, /\d/, ')', ' ', /\d/ ,/\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]
 
   constructor(
 

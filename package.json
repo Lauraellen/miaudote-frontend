@@ -33,6 +33,7 @@
     "ngx-lottie": "^10.0.0",
     "ngx-mask": "^16.4.2",
     "ngx-spinner": "^16.0.2",
+    "ngx-textmask": "^1.1.0",
     "rxjs": "~7.8.0",
     "slick-carousel": "^1.8.1",
     "tslib": "^2.3.0",

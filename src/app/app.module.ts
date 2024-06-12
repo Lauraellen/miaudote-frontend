@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { authGuard } from './core/guards/auth.guard';
+import { TextMaskModule } from 'ngx-textmask';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { authGuard } from './core/guards/auth.guard';
     BrowserAnimationsModule,
     NgbDropdownModule,
     NgbTooltipModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    TextMaskModule,
   ],
   exports: [
     SharedModule

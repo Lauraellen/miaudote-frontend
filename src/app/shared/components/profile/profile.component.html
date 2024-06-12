@@ -1,140 +1,144 @@
 <app-loader></app-loader>
 
 <div class="container" style="margin-bottom: 15px;">
-    <ng-container *ngIf="person">
-        <div class="row" *ngIf="!loadingPerson">
-            <div class="mt-2">
-                <h2>Olá, {{person.name}}!</h2>
+  <ng-container *ngIf="person">
+    <div class="row" *ngIf="!loadingPerson">
+      <div class="mt-2">
+        <h2>Olá, {{person.name}}!</h2>
+      </div>
+
+      <form [formGroup]="formProfile">
+        <div class="row">
+          <div class="form-group col-md-6 mt-3">
+            <label for="name" class="ng-select-label">Nome completo</label>
+            <input class="form-control" id="name" formControlName="name" placeholder="Nome completo">
+          </div>
+
+          <div class="form-group col-md-6 mt-3">
+            <label for="email" class="ng-select-label">E-mail</label>
+            <input class="form-control" id="email" formControlName="email" placeholder="E-mail">
+          </div>
+
+
+          <div class="form-group col-md-6 mt-3">
+            <label for="celphone" class="ng-select-label">Celular</label>
+            <input class="form-control" id="celphone" formControlName="celphone" placeholder="Celular">
+          </div>
+
+
+          <div class="form-group col-md-6 mt-3">
+            <label for="city" class="ng-select-label">Cidade</label>
+            <input class="form-control" id="city" formControlName="city" placeholder="Cidade">
+          </div>
+
+          <div class="form-group col-md-4 mt-3">
+            <label for="password" class="ng-select-label">Senha atual</label>
+            <div class="input-group">
+              <input #passwordInput type="password" class="form-control" id="password" formControlName="password"
+                placeholder="Senha atual">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button"
+                  (click)="togglePasswordVisibility(passwordInput)">
+                  <i class="fa" [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"></i>
+                </button>
+              </div>
             </div>
-    
-            <form [formGroup]="formProfile">
-                <div class="row">
-                    <div class="form-group col-md-6 mt-3">
-                        <label for="name" class="ng-select-label">Nome completo</label>
-                        <input class="form-control" id="name" formControlName="name" placeholder="Nome completo">
-                    </div>
-    
-                    <div class="form-group col-md-6 mt-3">
-                        <label for="email" class="ng-select-label">E-mail</label>
-                        <input class="form-control" id="email" formControlName="email" placeholder="E-mail">
-                    </div>
-    
-    
-                    <div class="form-group col-md-6 mt-3">
-                        <label for="celphone" class="ng-select-label">Celular</label>
-                        <input class="form-control" id="celphone" formControlName="celphone" placeholder="Celular">
-                    </div>
-    
-    
-                    <div class="form-group col-md-6 mt-3">
-                        <label for="city" class="ng-select-label">Cidade</label>
-                        <input class="form-control" id="city" formControlName="city" placeholder="Cidade">
-                    </div>
-    
-                    <div class="form-group col-md-4 mt-3">
-                        <label for="password" class="ng-select-label">Senha atual</label>
-                        <div class="input-group">
-                            <input #passwordInput type="password" class="form-control" id="password" formControlName="password"
-                                placeholder="Senha atual">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="button"
-                                    (click)="togglePasswordVisibility(passwordInput)">
-                                    <i class="fa" [ngClass]="{ 'fa-eye': showPassword, 'fa-eye-slash': !showPassword }"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-    
-    
-                    <ng-container>
-                        <div class="form-group col-md-4 mt-3">
-                            <label for="newPassword" class="ng-select-label">Nova senha</label>
-                            <div class="input-group">
-                                <input 
-                                    #newPasswordInput
-                                    type="password" 
-                                    class="form-control" 
-                                    id="newPassword" 
-                                    formControlName="newPassword"
-                                    placeholder="Nova senha"
-                                >
-                                <div class="input-group-append">
-                                    <button 
-                                        class="btn btn-outline-secondary" 
-                                        type="button" 
-                                        (click)="toggleNewPasswordVisibility(newPasswordInput)"
-                                    >
-                                        <i class="fa" [ngClass]="{ 'fa-eye': !showNewPassword, 'fa-eye-slash': showNewPassword }"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <div class="form-group col-md-4 mt-3">
-                            <label for="confirmPassword" class="ng-select-label">Confirmar senha</label>
-                            <div class="input-group">
-                                <input 
-                                    #confirmPasswordInput
-                                    type="password" 
-                                    class="form-control" 
-                                    id="confirmPassword" 
-                                    formControlName="confirmPassword" 
-                                    placeholder="Confirmar senha"
-                                >
-                                <div class="input-group-append">
-                                    <button 
-                                        class="btn btn-outline-secondary" 
-                                        type="button" 
-                                        (click)="toggleNewPasswordVisibility(confirmPasswordInput)"
-                                    >
-                                        <i class="fa" [ngClass]="{ 'fa-eye': !showConfirmPassword, 'fa-eye-slash': showConfirmPassword }"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                    
-    
+          </div>
+
+
+          <ng-container>
+            <div class="form-group col-md-4 mt-3">
+              <label for="newPassword" class="ng-select-label">Nova senha</label>
+              <div class="input-group">
+                <input #newPasswordInput type="password" class="form-control" id="newPassword"
+                  formControlName="newPassword" placeholder="Nova senha">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button"
+                    (click)="toggleNewPasswordVisibility(newPasswordInput)">
+                    <i class="fa" [ngClass]="{ 'fa-eye': !showNewPassword, 'fa-eye-slash': showNewPassword }"></i>
+                  </button>
                 </div>
-    
-            </form>
-        </div>
-        <div class="d-flex justify-content-end mt-3">
-            <div style="padding-right: 6px;">
-                <button *ngIf="modeEdit" class="btn-warning-secondary" (click)="cancelEdit()">Cancelar </button>
-            </div>
-    
-            <div style="padding-right: 6px;">
-                <button *ngIf="!modeEdit" class="btn-warning-secondary" (click)="logout()"> Sair </button>
+              </div>
             </div>
 
-            <button *ngIf="!modeEdit" class="btn-secondary" (click)="editProfile()">Editar </button>
-    
-            <button *ngIf="modeEdit" class="btn-primary" (click)="saveProfile()">Salvar </button>
-        </div>
-    </ng-container>
-
-    <hr>
-
-    <div class="row" *ngIf="person">
-        <div class="d-flex justify-content-between">
-            <div class="mt-2">
-                <h2>Meus pets cadastrados</h2>
+            <div class="form-group col-md-4 mt-3">
+              <label for="confirmPassword" class="ng-select-label">Confirmar senha</label>
+              <div class="input-group">
+                <input #confirmPasswordInput type="password" class="form-control" id="confirmPassword"
+                  formControlName="confirmPassword" placeholder="Confirmar senha">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button"
+                    (click)="toggleNewPasswordVisibility(confirmPasswordInput)">
+                    <i class="fa"
+                      [ngClass]="{ 'fa-eye': !showConfirmPassword, 'fa-eye-slash': showConfirmPassword }"></i>
+                  </button>
+                </div>
+              </div>
             </div>
+          </ng-container>
 
-            <button class="btn-primary" (click)="openModalNewPet()"> Adicionar novo pet </button>
+
         </div>
-        
 
-        <app-list-pets [getById]="true" [showButtonToProfile]="true" [showButtonsToMenu]="false" [personId]="person._id"></app-list-pets>
+      </form>
     </div>
+
+    <div class="d-flex justify-content-end mt-3">
+      <div style="padding-right: 6px;">
+        <button *ngIf="modeEdit" class="btn-warning-secondary" (click)="cancelEdit()">Cancelar </button>
+      </div>
+
+      <div style="padding-right: 6px;">
+        <button *ngIf="!modeEdit" class="btn-warning-secondary button-logout" (click)="openModalLogout()"> Sair </button>
+      </div>
+
+      <button *ngIf="!modeEdit" class="btn-secondary edit-profile" (click)="editProfile()">Editar </button>
+
+      <button *ngIf="modeEdit" class="btn-primary save-profile" (click)="saveProfile()">Salvar </button>
+    </div>
+  </ng-container>
+
+  <hr>
+
+  <div class="row" *ngIf="person">
+    <div class="d-flex justify-content-between">
+      <div class="mt-2">
+        <h2>Meus pets cadastrados</h2>
+      </div>
+
+      <button class="btn-primary" (click)="openModalNewPet()"> Adicionar novo pet </button>
+    </div>
+
+
+    <app-list-pets [getById]="true" [showButtonToProfile]="true" [showButtonsToMenu]="false"
+      [personId]="person._id"></app-list-pets>
+  </div>
 </div>
 
 <ng-template #newPet let-modal>
-    <app-modal [title]="'Novo pet'"
-    (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
-        <div body>
-            <app-new-pet></app-new-pet>
-        </div>
-    </app-modal>
+  <app-modal [title]="'Novo pet'" (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+    <div body>
+      <app-new-pet></app-new-pet>
+    </div>
+  </app-modal>
+</ng-template>
+
+<ng-template #modalSuccess let-modal>
+  <app-modal [title]="titleModal" (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+    <div body>
+      <span>{{messageModal}}</span>
+    </div>
+  </app-modal>
+</ng-template>
+
+<ng-template #modalLogout let-modal>
+  <app-modal [title]="'Sair?'" (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+    <div body>
+      <span>Deseja fazer logout da página Miaudote?</span>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn-warning-secondary button-confirm-logout" (click)="logout()">Sair</button>
+      </div>
+    </div>
+  </app-modal>
 </ng-template>

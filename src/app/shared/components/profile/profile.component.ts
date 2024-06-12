@@ -15,6 +15,9 @@ import { UtilsService } from 'src/app/services/utils/utils.service';
 export class ProfileComponent implements OnInit {
 
   @ViewChild('newPet') newPet!: TemplateRef<any>;
+  @ViewChild('modalSuccess') modalSuccess!: TemplateRef<any>;
+  @ViewChild('modalLogout') modalLogout!: TemplateRef<any>;
+
 
   userId!: string;
   loadingPerson: boolean = false;
@@ -24,7 +27,9 @@ export class ProfileComponent implements OnInit {
   showConfirmPassword: boolean = false;
   modeEdit: boolean = false;
   formProfile!: FormGroup;
-  
+  titleModal: string = "";
+  messageModal: string = "";
+
   constructor(
 
     private authService: AuthService,
@@ -45,7 +50,7 @@ export class ProfileComponent implements OnInit {
       password: [null],
       newPassword: [null],
       confirmPassword: [null]
-     
+
     });
 
     this.userId = this.authService.getUserId();
@@ -106,7 +111,25 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfile() {
-    
+    console.debug('person => ', this.person)
+    console.debug(this.formProfile.getRawValue())
+
+    const body = this.formProfile.getRawValue();
+    body._id = this.person?._id;
+    body.savedPets = this.person?.savedPets;
+
+    this.userService.updateUser(this.person?._id, body).pipe(take(1))
+    .subscribe({
+      next: response => {
+        this.titleModal = 'Usuário atualizado com sucesso!';
+        this.messageModal = `O usuário ${this.person?.name} foi editado com sucesso!`
+        this.loadingPerson = false;
+        this.modeEdit = false;
+        this.utilService.openModal(this.modalSuccess, {centered: true, size: 'lg'})
+        this.formProfile.disable({emitEvent: false, onlySelf: true})
+
+      }
+    })
   }
 
   goToLogin(isNewAccount?: boolean) {
@@ -123,10 +146,14 @@ export class ProfileComponent implements OnInit {
     location.reload();
   }
 
+  openModalLogout() {
+    this.utilService.openModal(this.modalLogout, {centered: true, size: 'sm'})
+  }
+
   openModalNewPet() {
     this.utilService.openModal(this.newPet, {centered: true, size: 'lg'})
   }
- 
+
   closeModal(modal: NgbActiveModal) {
     this.utilService.closeModal(modal)
   }

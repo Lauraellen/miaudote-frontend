@@ -21,12 +21,12 @@ export class UserService {
     return this.http.get(`${environment.url}/user/${id}`);
   }
 
-  updateUser(id: String, body: any) {    
-    return this.http.put(`${environment.url}/user${id}`, body);
+  updateUser(id: String, body: any) {
+    return this.http.put(`${environment.url}/user/${id}`, body);
   }
 
   deleteUser(id: String) {
-    return this.http.delete(`${environment.url}/user${id}`);
+    return this.http.delete(`${environment.url}/user/${id}`);
   }
 
   addFavoritePet(body: any) {

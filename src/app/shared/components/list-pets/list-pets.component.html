@@ -1,100 +1,116 @@
 <app-loader></app-loader>
 
 <div class="container" style="margin-bottom: 15px;" *ngIf="listPets?.length > 0">
-    <div class="row">
-        <div class="mt-2" *ngIf="byFilter">
-            <h2>Filtros aplicados:</h2>
-        </div>
-        <ng-container *ngFor="let pet of listPets">
-            <div class="col-md-3">
-                <div class="pet-carousel">
-                    <div class="slick-carousel">
-                        <div *ngFor="let photo of pet.photos">
-                            <div class="image-container">
-                                <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
-                                <div class="carousel-buttons" *ngIf="showButtonsToMenu">
-                                    <button class="btn-primary size" (click)="adoptPet(pet)">Adotar amiguinho agora!</button>
-                                    <button class="btn-secondary size" (click)="addFavoritePet(pet)">Possível aumiguinho</button>
-                                </div>
-
-                                <div class="carousel-buttons" *ngIf="showButtonToProfile">
-                                    <button class="btn-primary size" (click)="openModalToEdit(pet)">Editar</button>
-                                    <button class="btn-warning-secondary size" (click)="openModalToConfirm(pet)">Excluir</button>
-                                </div>
-
-
-                                <div class="carousel-buttons" *ngIf="showButtonToFavorite">
-                                    <button class="btn-warning-primary size" (click)="openConfirmModal(pet)">Remover</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div style="background-color: rgba(202, 198, 198, 0.658);">
-                    <div class="d-flex justify-content-center">
-                        <span class="name">{{pet.name}} </span>
-                        <span *ngIf="pet.age"> - {{pet.age.age}} - </span>
-                        <span *ngIf="pet.breed">{{pet.breed}} - </span>
-                        <span *ngIf="pet.city">{{pet.city}}</span>
-                    </div>
-                    <p class="d-flex justify-content-center col-md-12" *ngIf="pet.description">{{pet.description}}</p>
-                </div>
-
-
-            </div>
-        </ng-container>
+  <div class="row">
+    <div class="mt-2" *ngIf="byFilter">
+      <h2>Filtros aplicados:</h2>
     </div>
+    <ng-container *ngFor="let pet of listPets">
+      <div class="col-md-3">
+        <div class="pet-carousel">
+          <div class="slick-carousel">
+            <div *ngFor="let photo of pet.photos">
+              <div class="image-container">
+                <img src="{{ photo.url }}" alt="{{ photo.alt }}" class="img-fluid">
+                <div class="carousel-buttons" *ngIf="showButtonsToMenu">
+                  <button class="btn-primary size" (click)="adoptPet(pet)">Adotar amiguinho agora!</button>
+                  <button class="btn-secondary size button-add-favorite-pets" (click)="addFavoritePet(pet)">Possível
+                    aumiguinho</button>
+                </div>
+
+                <div class="carousel-buttons" *ngIf="showButtonToProfile">
+                  <button class="btn-primary size" (click)="openModalToEdit(pet)">Editar</button>
+                  <button class="btn-warning-secondary size" (click)="openModalToConfirm(pet)">Excluir</button>
+                </div>
+
+
+                <div class="carousel-buttons" *ngIf="showButtonToFavorite">
+                  <button class="btn-warning-primary size button-remove-favorite-pet" (click)="openConfirmModal(pet)">Remover</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="background-color: rgba(202, 198, 198, 0.658);">
+          <div class="d-flex justify-content-center">
+            <span class="name">{{pet.name}} </span>
+            <span *ngIf="pet.age"> - {{pet.age.age}} - </span>
+            <span *ngIf="pet.breed">{{pet.breed}} - </span>
+            <span *ngIf="pet.city">{{pet.city}}</span>
+          </div>
+          <p class="d-flex justify-content-center col-md-12" *ngIf="pet.description">{{pet.description}}</p>
+        </div>
+
+
+      </div>
+    </ng-container>
+  </div>
 </div>
 
 
 <ng-container *ngIf="listPets?.length == 0">
 
-    <div class="row mt-5">
-        <div class="col-md-12 d-flex justify-content-center">
+  <div class="row mt-5">
+    <div class="col-md-12 d-flex justify-content-center">
 
-            <ng-lottie [styles]="styles" [options]="options" (animationCreated)="animationCreated($event)">
-            </ng-lottie>
-        </div>
-        <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="!getById && !byFilter">Não há nenhum pet cadastrado para adoção no momento!</h3>
-
-        <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="getById">Não há nenhum aumiguinho {{showButtonToProfile ? 'cadastrado' : 'salvo'}}!</h3>
-        <h3 class="col-md-12 d-flex justify-content-center"  *ngIf="byFilter">Não encontramos nenhum pet com os filtros selecionados.</h3>
-
+      <ng-lottie [styles]="styles" [options]="options" (animationCreated)="animationCreated($event)">
+      </ng-lottie>
     </div>
+    <h3 class="col-md-12 d-flex justify-content-center" *ngIf="!getById && !byFilter">Não há nenhum pet cadastrado para
+      adoção no momento!</h3>
+
+    <h3 class="col-md-12 d-flex justify-content-center" *ngIf="getById">Não há nenhum aumiguinho {{showButtonToProfile ?
+      'cadastrado' : 'salvo'}}!</h3>
+    <h3 class="col-md-12 d-flex justify-content-center" *ngIf="byFilter">Não encontramos nenhum pet com os filtros
+      selecionados.</h3>
+
+  </div>
 
 </ng-container>
 
 <ng-template #editPet let-modal>
-    <app-modal [title]="'Editar pet'"
-    (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
-        <div body>
-            <app-new-pet [pet]="petToEdit"></app-new-pet>
-        </div>
-    </app-modal>
+  <app-modal [title]="'Editar pet'" (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+    <div body>
+      <app-new-pet [pet]="petToEdit"></app-new-pet>
+    </div>
+  </app-modal>
 </ng-template>
 
 <ng-template #deletePet let-modal>
-    <app-modal [title]="'Excluir pet'"
-    (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
-        <div body>
-            <h5>Deseja confirmar a exclusão do pet {{pet.name}} ? </h5>
+  <app-modal [title]="'Excluir pet'" (buttonClicked)="closeModal(modal)" [hasButtons]="false"
+    [closeButtonHeader]="true">
+    <div body>
+      <h5>Deseja confirmar a exclusão do pet {{pet.name}} ? </h5>
 
-            <div class="d-flex justify-content-end mt-3">
-                <button class="btn-cancel" (click)="closeModal(modal)">Cancelar</button>
-                <button class="btn-warning-primary" (click)="removePet(pet)">Confirmar</button>
+      <div class="d-flex justify-content-end mt-3">
+        <button class="btn-cancel" (click)="closeModal(modal)">Cancelar</button>
+        <button class="btn-warning-primary" (click)="removePet(pet)">Confirmar</button>
 
-            </div>
-        </div>
-    </app-modal>
+      </div>
+    </div>
+  </app-modal>
 </ng-template>
 
 <ng-template #modalConfirmRemover let-modal>
-  <app-modal [title]="'Remover pet'" (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+  <app-modal [title]="'Remover pet?'" (buttonClicked)="closeModal(modal)" [hasButtons]="false"
+    [closeButtonHeader]="true">
     <div body>
       <span>Deseja remover o pet {{petRemove?.name}} dos seus favoritos?</span>
 
       <div class="d-flex justify-content-end">
-        <button class="btn-warning-secondary" (click)="removeFromFavorite()"> Remover</button>
+        <button class="btn-warning-secondary button-confirm-remove" (click)="removeFromFavorite()"> Remover</button>
+      </div>
+    </div>
+  </app-modal>
+</ng-template>
+
+<ng-template #modalSuccess let-modal>
+  <app-modal [title]="titleModal" (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+    <div body>
+      <span>{{messageModal}}</span>
+
+      <div class="d-flex justify-content-end" *ngIf="goToLogin">
+        <button class="btn-secondary button-navigate-login" (click)="navigateToLogin()">Fazer login</button>
       </div>
     </div>
   </app-modal>

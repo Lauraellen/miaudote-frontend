@@ -2,7 +2,7 @@ describe('Criando cenários de teste realizando login', () => {
 
   it('Caso de teste: E-mail e senha corretos', () => {
     cy.visit('localhost:4200/login')
-    cy.get('#email').type('laura.ellen@gec.inatel.br')
+    cy.get('#email').type('laura.ellen.souza@hotmail.com')
     cy.get('#password').type('123456')
     cy.get('.button-entrar').click();
     cy.contains('MIAUDOTE');
@@ -10,7 +10,7 @@ describe('Criando cenários de teste realizando login', () => {
 
   it('Caso de teste: E-mail e senha incorretos', () => {
     cy.visit('localhost:4200/login')
-    cy.get('#email').type('laura.ellen@gec.inatel.br')
+    cy.get('#email').type('laura.ellen.souza@hotmail.com')
     cy.get('#password').type('1234567')
     cy.get('.button-entrar').click();
     cy.contains('E-mail ou senha incorretos.');

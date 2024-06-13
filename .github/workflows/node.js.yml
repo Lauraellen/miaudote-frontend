@@ -22,7 +22,9 @@ jobs:
       run: npm install
 
     - name: Start local server
-      run: npm start
+      run: |
+        npm start &
+        npx wait-on http://localhost:4200
 
     - name: Run Cypress tests
       run: npx cypress run --headless

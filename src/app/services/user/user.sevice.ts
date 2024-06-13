@@ -34,7 +34,7 @@ export class UserService {
   }
 
   removeFavoritePet(body: any) {
-    return this.http.post(`${environment.url}/addFavoritePet`, body)
+    return this.http.post(`${environment.url}/removeFavoritePet`, body)
   }
 
   addPetOfInterest(body: any) {

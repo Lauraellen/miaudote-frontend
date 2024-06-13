@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs';
 import { FileUpload } from 'src/app/models/model-upload';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -15,6 +16,8 @@ import { UtilsService } from 'src/app/services/utils/utils.service';
   styleUrls: ['./new-pet.component.css']
 })
 export class NewPetComponent implements OnInit {
+
+  @ViewChild('modalSuccess') modalSuccess!: TemplateRef<any>;
 
   @Input() pet!: any;
   selectedFiles?: FileList;
@@ -41,6 +44,8 @@ export class NewPetComponent implements OnInit {
   species: any[] = [];
 
   formPets!: FormGroup;
+  titleModal: string = "";
+  messageModal: string = "";
 
   constructor(
     private fb: FormBuilder,
@@ -54,18 +59,18 @@ export class NewPetComponent implements OnInit {
 
   ngOnInit(): void {
     this.formPets = this.fb.group({
-      name: [null],
-      gender: [0],
+      name: [null, [Validators.required]],
+      gender: [0, [Validators.required]],
       breed: [null],
-      specie: [0],
-      age: [0],
-      idState: [0],
-      idCity: [0],
+      specie: [0, [Validators.required]],
+      age: [0, [Validators.required]],
+      idState: [0, [Validators.required]],
+      idCity: [0, [Validators.required]],
       description: [null],
       status: ['Disponível'],
       registrationDate: [new Date()],
       user: [null],
-      photos: [null],
+      photos: [null, [Validators.required]],
     });
 
     this.getStates();
@@ -76,6 +81,8 @@ export class NewPetComponent implements OnInit {
       this.filesUploaded = this.pet.photos
       this.setData();
     }
+
+    console.debug(this.formPets)
   }
 
   setData() {
@@ -104,8 +111,6 @@ export class NewPetComponent implements OnInit {
     }
 
     const body = this.formPets.getRawValue();
-    const age = body.age;
-    const specie = body.specie;
 
     body.user = {_id: userId};
     body.photos = files ;
@@ -115,7 +120,10 @@ export class NewPetComponent implements OnInit {
     if(!this.pet) {
       this.petsService.createPet(body).subscribe(res => {
         this.utilsService.dismissAllModal();
-        location.reload();
+
+        this.utilsService.openModal(this.modalSuccess, {centered: true, size: 'md'});
+        this.titleModal = `Pet cadastrado!`;
+        this.messageModal = `O pet ${body.name} foi cadastrado com sucesso!`
       });
     } else {
       this.petsService.updatePet(this.pet._id, body).subscribe(res => {
@@ -156,7 +164,7 @@ export class NewPetComponent implements OnInit {
         const file: File = files[i];
         const fileUpload: FileUpload = new FileUpload(file);
         this.currentFileUploads.push(fileUpload);
-
+        this.formPets.get('photos')?.setValue(this.currentFileUploads)
         this.uploadService.pushFileToStorage(fileUpload).subscribe(
           (percentage: number | undefined) => {
             this.percentage = percentage;
@@ -174,7 +182,22 @@ export class NewPetComponent implements OnInit {
   }
 
   removeFile(file: any): void {
-    this.filesUploaded = this.filesUploaded.filter((e: any) => e._id != file._id)
+    console.debug(file)
+
+    if(this.filesUploaded.length > 0) {
+      this.filesUploaded = this.filesUploaded.filter((e: any) => e._id != file._id)
+      this.formPets.get('photos')?.setValue(this.filesUploaded.length == 0 ? null : this.filesUploaded)
+
+    }
+
+    if(this.currentFileUploads.length > 0) {
+      this.currentFileUploads = this.currentFileUploads.filter((e:any) => e.name != file.name)
+      this.formPets.get('photos')?.setValue(this.currentFileUploads.length == 0 ? null : this.currentFileUploads)
+
+    }
+
+    console.debug('filesUploaded => ', this.currentFileUploads)
+
   }
 
   onStateSelect(event: any) {
@@ -198,6 +221,11 @@ export class NewPetComponent implements OnInit {
         }
       }
     })
+  }
+
+  closeModal(modal: NgbActiveModal) {
+    this.utilsService.closeModal(modal);
+    location.reload();
   }
 
 }

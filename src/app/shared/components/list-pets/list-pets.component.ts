@@ -17,7 +17,7 @@ import { AnimationItem } from 'lottie-web';
   styleUrls: ['./list-pets.component.css']
 })
 export class ListPetsComponent implements OnInit, OnDestroy {
-  
+
   subscription: Subscription = new Subscription();
 
   options: AnimationOptions = {
@@ -36,6 +36,8 @@ export class ListPetsComponent implements OnInit, OnDestroy {
 
   @ViewChild('editPet') editPet!: TemplateRef<any>;
   @ViewChild('deletePet') deletePet!: TemplateRef<any>;
+  @ViewChild('modalConfirmRemover') modalConfirmRemover!: TemplateRef<any>;
+
 
   @Input() getById: boolean = false;
   @Input() showButtonsToMenu: boolean = true;
@@ -49,6 +51,7 @@ export class ListPetsComponent implements OnInit, OnDestroy {
   pet!: any;
   personId: string = '';
   byFilter: boolean = false;
+  petRemove: any;
 
   constructor(
     private elementRef: ElementRef,
@@ -94,7 +97,7 @@ export class ListPetsComponent implements OnInit, OnDestroy {
           if(res?.length == 0) {
             this.byFilter = false;
           }
-          
+
         }
       })
     )
@@ -184,7 +187,7 @@ export class ListPetsComponent implements OnInit, OnDestroy {
           this.byFilter = false;
         },
       })
-      
+
   }
 
   getPhotos(fileName: string) {
@@ -200,11 +203,11 @@ export class ListPetsComponent implements OnInit, OnDestroy {
   }
 
   openModalToConfirm(pet: any) {
-    this.pet = pet;    
+    this.pet = pet;
     this.utilService.openModal(this.deletePet, {centered: true, size: 'sm'})
 
   }
- 
+
   closeModal(modal: NgbActiveModal) {
     this.utilService.closeModal(modal)
   }
@@ -233,15 +236,22 @@ export class ListPetsComponent implements OnInit, OnDestroy {
     })
   }
 
-  removeFromFavorite(pet: any) {
+  openConfirmModal(pet: any) {
+    this.utilService.openModal(this.modalConfirmRemover, {centered: true, size: 'lg'})
+    this.petRemove = pet
+  }
+
+  removeFromFavorite() {
     const body = {
-      idPet: pet._id,
+      idPet: this.petRemove._id,
       idUser: this.personId
     }
 
     this.userService.removeFavoritePet(body).pipe(take(1))
     .subscribe({
       next: response => {
+        this.utilService.dismissAllModal();
+        location.reload();
       }
     })
   }

@@ -5,12 +5,12 @@
     <form [formGroup]="formPets">
       <div class="row">
         <div class="form-group col-md-6 mt-3">
-          <label for="name" class="ng-select-label">Nome do pet</label>
+          <label for="name" class="ng-select-label">Nome do pet <span class="required">*</span></label>
           <input class="form-control" id="name" formControlName="name" placeholder="Nome do pet">
         </div>
 
         <div class="form-group col-md-3 mt-3">
-          <label for="gender" class="ng-select-label">Sexo</label>
+          <label for="gender" class="ng-select-label">Sexo <span class="required">*</span></label>
           <div class="custom-select-container">
             <select class="form-control custom-select" id="gender" formControlName="gender">
               <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group col-md-3 mt-3">
-          <label for="specie" class="ng-select-label">Espécie do animal</label>
+          <label for="specie" class="ng-select-label">Espécie do animal <span class="required">*</span></label>
           <div class="custom-select-container">
             <select class="form-control custom-select" id="specie" formControlName="specie">
               <option value="0" selected>Selecione...</option>
@@ -37,7 +37,7 @@
         </div>
 
         <div class="form-group col-md-3 mt-3">
-          <label for="age" class="ng-select-label">Idade</label>
+          <label for="age" class="ng-select-label">Idade <span class="required">*</span></label>
           <div class="custom-select-container">
             <select class="form-control custom-select" id="age" formControlName="age">
               <option [ngValue]="0" selected>Selecione</option> <!-- Opção para seleção vazia -->
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group col-md-3 mt-3">
-          <label for="idState" class="ng-select-label">Estado</label>
+          <label for="idState" class="ng-select-label">Estado <span class="required">*</span></label>
           <div class="custom-select-container">
             <select class="form-control custom-select" id="idState" formControlName="idState"
               (change)="onStateSelect($event)">
@@ -65,7 +65,7 @@
         </div>
 
         <div class="form-group col-md-3 mt-3">
-          <label for="idCity" class="ng-select-label">Cidade</label>
+          <label for="idCity" class="ng-select-label">Cidade <span class="required">*</span></label>
           <div class="custom-select-container">
             <select class="form-control custom-select" id="idCity" formControlName="idCity">
               <option [ngValue]="0" selected>Selecione...</option> <!-- Opção para seleção vazia -->
@@ -98,16 +98,16 @@
                   <button type="button" class="btn btn-sm btn-danger float-end" (click)="removeFile(file)">Remover</button>
                 </li>
               </ng-container>
-              
+
             </ul>
           </div>
         </div>
 
         <div class="row mt-3">
           <div class="col-8">
+            <p>Adicione as fotos do seu pet <span class="required">*</span></p>
             <label class="custom-file-upload">
               <input type="file" [multiple]="true" class="text-nowrap text-truncate" (change)="selectFile($event)" />
-
             </label>
           </div>
         </div>
@@ -124,9 +124,17 @@
       </div>
 
       <div class="d-flex justify-content-end mt-3">
-        <button class="btn-primary" (click)="saveNewPet()">Salvar </button>
+        <button class="btn-primary" (click)="saveNewPet()" [disabled]="formPets?.invalid">Salvar </button>
       </div>
 
     </form>
   </div>
 </div>
+
+<ng-template #modalSuccess let-modal>
+  <app-modal [title]="titleModal" (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+    <div body>
+      <span>{{messageModal}}</span>
+    </div>
+  </app-modal>
+</ng-template>

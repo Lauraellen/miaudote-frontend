@@ -1,77 +1,88 @@
 .custom-select-container {
-    position: relative;
+  position: relative;
 }
 
 .custom-select {
-    appearance: none;
-    /* Remove estilos padrão do elemento select */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background-color: #fff;
-    padding: 8px 24px 8px 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+  appearance: none;
+  /* Remove estilos padrão do elemento select */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  padding: 8px 24px 8px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .custom-select-arrow {
-    position: absolute;
-    top: 50%;
-    right: 10px;
-    transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid #666;
-    /* Cor da seta */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #666;
+  /* Cor da seta */
 }
 
 .clear-selection-icon {
-    position: absolute;
-    top: 50%;
-    right: 30px;
-    /* Espaçamento da margem direita */
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #666;
-    /* Cor do ícone */
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  /* Espaçamento da margem direita */
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  /* Cor do ícone */
 }
 
 .btn-edit {
-    margin: 5px 0;
-    border-radius: 10px;
-    padding: 8px 16px;
-    cursor: pointer;
-    border: none;
-    outline: none;
-    transition: background-color 0.3s;
-    background-color: #AACBC4;
-    color: white;
-    font-weight: bold;
+  margin: 5px 0;
+  border-radius: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background-color 0.3s;
+  background-color: #AACBC4;
+  color: white;
+  font-weight: bold;
 }
 
 .custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    color: #333;
-    border-radius: 4px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #333;
+  border-radius: 4px;
 }
 
 .custom-file-upload:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 .bg-custom {
-    background-color: #5bc0de; /* Cor de fundo personalizada */
-    color: #fff; /* Cor do texto */
-    text-align: center; /* Alinhamento do texto */
-    font-weight: bold; /* Peso da fonte */
-    font-size: 14px; /* Tamanho da fonte */
-    line-height: 2; /* Altura da linha */
-    border-radius: 4px; /* Raio da borda */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra da caixa */
-  }
-  
+  background-color: #5bc0de;
+  /* Cor de fundo personalizada */
+  color: #fff;
+  /* Cor do texto */
+  text-align: center;
+  /* Alinhamento do texto */
+  font-weight: bold;
+  /* Peso da fonte */
+  font-size: 14px;
+  /* Tamanho da fonte */
+  line-height: 2;
+  /* Altura da linha */
+  border-radius: 4px;
+  /* Raio da borda */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Sombra da caixa */
+}
+
+.required {
+  color: red;
+}

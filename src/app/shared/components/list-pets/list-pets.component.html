@@ -22,9 +22,9 @@
                                     <button class="btn-warning-secondary size" (click)="openModalToConfirm(pet)">Excluir</button>
                                 </div>
 
-                                
+
                                 <div class="carousel-buttons" *ngIf="showButtonToFavorite">
-                                    <button class="btn-warning-primary size" (click)="removeFromFavorite(pet)">Remover</button>
+                                    <button class="btn-warning-primary size" (click)="openConfirmModal(pet)">Remover</button>
                                 </div>
                             </div>
                         </div>
@@ -86,4 +86,16 @@
             </div>
         </div>
     </app-modal>
+</ng-template>
+
+<ng-template #modalConfirmRemover let-modal>
+  <app-modal [title]="'Remover pet'" (buttonClicked)="closeModal(modal)" [hasButtons]="false" [closeButtonHeader]="true">
+    <div body>
+      <span>Deseja remover o pet {{petRemove?.name}} dos seus favoritos?</span>
+
+      <div class="d-flex justify-content-end">
+        <button class="btn-warning-secondary" (click)="removeFromFavorite()"> Remover</button>
+      </div>
+    </div>
+  </app-modal>
 </ng-template>

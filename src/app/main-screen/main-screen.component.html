@@ -1,46 +1,68 @@
 <app-loader></app-loader>
 <div class="header">
 
-    <div class="d-flex justify-content-between">
-        <div></div>
-        <h2>MIAUDOTE</h2>
+  <div class="d-flex justify-content-between">
+    <div></div>
+    <h2>MIAUDOTE</h2>
 
-        <div class="dropdown" ngbDropdown style="margin-right: 2.5rem;">
-            <button type="button" [ngbTooltip]="'Notificações'" placement="bottom" tooltipClass="btn-custom-tooltip"
-                class="btn noti-icon" id="page-header-notifications-dropdown" ngbDropdownToggle>
-                <i class="fa-solid fa-bell"></i>
-                <span class="badge badge-pill" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
-            </button>
+    <div class="dropdown" ngbDropdown style="margin-right: 2.5rem;">
+      <button type="button" [ngbTooltip]="'Notificações'" placement="bottom" tooltipClass="btn-custom-tooltip"
+        class="btn noti-icon" id="page-header-notifications-dropdown" ngbDropdownToggle>
+        <i class="fa-solid fa-bell"></i>
+        <span class="badge badge-pill" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
+      </button>
 
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
-                aria-labelledby="page-header-notifications-dropdown" ngbDropdownMenu>
-                <div class="perfect-scrollbar">
-                    <div class="notification-items">
-                        <ol class="notifications-list">
-                            <li *ngFor="let notification of notifications, let i = index" class="notification-item">
-                                <div class="notification-container" (click)="filterPet(notification)">
-                                    <div class="media-body">
-                                      <h6 class="mt-0 mb-1">{{ notification.message }}</h6>
-                                      <div class="font-size-14 text-muted">
-                                        <p class="mb-1">cadastrado em {{ notification.createDate}}</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <hr style="width: 100%; margin-bottom: 0px;">
+      <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
+        aria-labelledby="page-header-notifications-dropdown" ngbDropdownMenu>
+        <div class="perfect-scrollbar">
+          <div class="notification-items">
+            <ol class="notifications-list">
 
-                            </li>
-                        </ol>
+              <ng-container *ngIf="notifications.length > 0">
+                <li *ngFor="let notification of notifications, let i = index" class="notification-item">
+
+                  <ng-container *ngIf="!notification?.wasRead">
+                    <div class="notification-container" (click)="filterPet(notification)">
+
+
+                      <div class="media-body">
+                        <h6 class="mt-0 mb-1">{{ notification.message }}</h6>
+                        <div class="font-size-14 text-muted">
+                          <p class="mb-1">cadastrado em {{ notification.createDate}}</p>
+                        </div>
+                      </div>
                     </div>
 
+                    <div class="d-flex justify-content-end">
+                      <i class="fa-solid fa-circle-check check" [ngbTooltip]="'Marcar notificação como lida'"
+                      placement="bottom" tooltipClass="btn-custom-tooltip" (click)="checkedWasRead(notification?._id)"></i>
+                      <!-- <button class="btn-secondary button">Marcar como lida</button> -->
+                    </div>
+                  </ng-container>
 
-                </div>
+                  <hr style="width: 100%; margin-bottom: 0px;">
 
-            </div>
+                </li>
+              </ng-container>
+
+              <ng-container *ngIf="notifications.length == 0">
+                <span class="d-flex justify-content-center mt-4">Você não possui notificações!</span>
+              </ng-container>
+
+            </ol>
+
+
+          </div>
+
+
         </div>
 
+      </div>
     </div>
 
-    <!-- <div class="d-flex justify-content-between">
+  </div>
+
+  <!-- <div class="d-flex justify-content-between">
         <div></div>
         <h2>MIAUDOTE</h2>
         <div class="mt-2">
@@ -58,30 +80,30 @@
     </div> -->
 </div>
 <div class="container-fluid">
-    <div class="sidebar">
-        <div style="padding-top: 15%;">
-            <app-sidebar></app-sidebar>
-        </div>
-
-        <div class="filter" *ngIf="!isProfile && !isFavorite && !isSubscribes">
-            <app-filter></app-filter>
-        </div>
+  <div class="sidebar">
+    <div style="padding-top: 15%;">
+      <app-sidebar></app-sidebar>
     </div>
-    <div class="conteudo">
-        <ng-container *ngIf="!isProfile && !isFavorite && !isSubscribes">
-            <app-list-pets [showButtonToProfile]="false" [showButtonsToMenu]="true"></app-list-pets>
-        </ng-container>
 
-        <ng-container *ngIf="isProfile && !isFavorite && !isSubscribes">
-            <app-profile></app-profile>
-        </ng-container>
-
-        <ng-container *ngIf="!isProfile && !isSubscribes && isFavorite">
-            <app-favorite-pets></app-favorite-pets>
-        </ng-container>
-
-        <ng-container *ngIf="!isProfile && isSubscribes && !isFavorite">
-            <app-subscribes></app-subscribes>
-        </ng-container>
+    <div class="filter" *ngIf="!isProfile && !isFavorite && !isSubscribes">
+      <app-filter></app-filter>
     </div>
+  </div>
+  <div class="conteudo">
+    <ng-container *ngIf="!isProfile && !isFavorite && !isSubscribes">
+      <app-list-pets [showButtonToProfile]="false" [showButtonsToMenu]="true"></app-list-pets>
+    </ng-container>
+
+    <ng-container *ngIf="isProfile && !isFavorite && !isSubscribes">
+      <app-profile></app-profile>
+    </ng-container>
+
+    <ng-container *ngIf="!isProfile && !isSubscribes && isFavorite">
+      <app-favorite-pets></app-favorite-pets>
+    </ng-container>
+
+    <ng-container *ngIf="!isProfile && isSubscribes && !isFavorite">
+      <app-subscribes></app-subscribes>
+    </ng-container>
+  </div>
 </div>

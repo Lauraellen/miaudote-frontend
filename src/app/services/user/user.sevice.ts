@@ -52,6 +52,10 @@ export class UserService {
 
   getNotificationsByUser(userId: string) {
     return this.http.get(`${environment.url}/getNotificationsByUser/${userId}`)
+  }
+
+  markNotificationsWasRead(notificationId: string, body?: any) {
+    return this.http.put(`${environment.url}/notification/${notificationId}/marcar-lida/`, body)
 
   }
 }

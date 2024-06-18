@@ -52,6 +52,11 @@ export class MainScreenComponent implements OnInit {
       next: (response: any) => {
         this.notifications = response;
 
+        this.notifications = this.notifications.filter((e: any) => !e?.wasRead)
+        this.notifications.sort((a, b) => {
+          return new Date(b.notificationDate).getTime() - new Date(a.notificationDate).getTime();
+      });
+
         this.notifications.forEach(e => {
           e.createDate = format(new Date(e?.notificationDate), 'dd/MM/yyyy');
         })
@@ -60,11 +65,19 @@ export class MainScreenComponent implements OnInit {
     })
   }
 
+  checkedWasRead(id: string) {
+    this.userService.markNotificationsWasRead(id).pipe(take(1)).subscribe({
+      next: (response: any) => {
+        this.getNotifications();
+      }
+    })
+  }
+
   filterPet(notification: any) {
     this.petService.getPet(notification.petId).pipe(take(1)).subscribe({
       next: (response: any) => {
         if(response) {
-          
+
 
           const body = {
             specie: response?.specie?._id,
@@ -76,7 +89,7 @@ export class MainScreenComponent implements OnInit {
           };
 
           this.petService.getPetsByFilter(body).pipe(take(1)).subscribe({
-            next: (response) => {        
+            next: (response) => {
               this.petService.setListPetsByFilterBehavior(response);
               this.router.navigate([`/adote`]);
             },

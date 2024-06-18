@@ -13,14 +13,14 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
 
   private readonly _message = new BehaviorSubject<any>(undefined);
-  
+
   @ViewChild('subscribePets') subscribePets!: TemplateRef<any>;
 
   title = 'miaudote-frontend';
 
   message$ = this._message.asObservable();
   personId: any;
-  showButton: boolean = true;
+  showButton: boolean = false;
 
   constructor(
     private utilsService: UtilsService,
@@ -29,8 +29,15 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
     this.personId = this.authService.getUserId();
+
+    if(!this.personId) {
+      this.showButton = false;
+    } else {
+      this.showButton = true;
+
+    }
+
     console.debug(this.personId)
   }
 
@@ -39,11 +46,14 @@ export class AppComponent implements OnInit {
   }
 
   openModal() {
+
     if(!this.personId) {
       this.showButton = false;
       this.router.navigate(['/login']);
       return
     }
+
+
     this.utilsService.openModal(this.subscribePets, {size: 'lg', centered: true})
   }
 }
